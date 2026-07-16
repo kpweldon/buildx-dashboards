@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuildX Google Ads — The $50/Day Verdict</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1a1815;--bg2:#211e1a;--card:#26221d;--card2:#2d2822;
+  --gold:#FFB81C;--gold-dim:rgba(255,184,28,.14);--gold-bdr:rgba(255,184,28,.35);
+  --green:#46d18a;--green-dim:rgba(70,209,138,.12);--green-bdr:rgba(70,209,138,.4);
+  --red:#ff6b6b;--red-dim:rgba(255,107,107,.12);--blue:#5aa9ff;--purple:#b98aff;
+  --txt:#f0ece4;--sub:#a89f92;--line:#3a342c;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 80px}
+
+.hero{padding:32px 0 20px;border-bottom:1px solid var(--line)}
+.hero .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;font-weight:700}
+.hero h1{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(27px,5.5vw,42px);line-height:1.06;margin:10px 0 8px}
+.hero h1 span{color:var(--gold)}
+.hero p{color:var(--sub);max-width:640px}
+
+/* VERDICT BANNER */
+.verdict{display:flex;gap:16px;margin:20px 0;background:linear-gradient(135deg,var(--red-dim),transparent);border:1px solid rgba(255,107,107,.4);border-radius:14px;padding:18px}
+.verdict .big{font-family:'Archivo',sans-serif;font-weight:900;font-size:44px;line-height:1;color:var(--red);flex:0 0 auto}
+.verdict h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:17px;margin-bottom:5px}
+.verdict p{font-size:13.5px;color:var(--sub)}
+.verdict p b{color:var(--txt)}
+
+/* MATH CARDS */
+.mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 4px}
+@media(max-width:560px){.mathgrid{grid-template-columns:1fr}}
+.mcard{border-radius:14px;padding:16px;border:1px solid var(--line)}
+.mcard.bad{background:var(--red-dim);border-color:rgba(255,107,107,.4)}
+.mcard.good{background:var(--green-dim);border-color:var(--green-bdr)}
+.mcard .tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.mcard.bad .tag{color:var(--red)}
+.mcard.good .tag{color:var(--green)}
+.mcard .line{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.mcard .line:last-child{border:none}
+.mcard .line b{font-family:'JetBrains Mono',monospace}
+.mcard .verdict-line{margin-top:8px;font-size:12.5px;font-weight:600}
+.mcard.bad .verdict-line{color:var(--red)}
+.mcard.good .verdict-line{color:var(--green)}
+
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:16px 0 4px;position:sticky;top:0;background:linear-gradient(var(--bg) 85%,transparent);z-index:50;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:9px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--sub);cursor:pointer;white-space:nowrap}
+.tab.active{background:var(--gold);color:#1a1510;border-color:var(--gold)}
+
+.panel{display:none;padding-top:18px}
+.panel.show{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.phase{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;margin:24px 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.phase .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold);border:1px solid var(--gold-bdr);border-radius:6px;padding:3px 8px;background:var(--gold-dim)}
+.phase .lock{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--sub);border:1px solid var(--line);border-radius:99px;padding:3px 9px}
+.phase-sub{color:var(--sub);font-size:13.5px;margin-bottom:14px}
+
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;cursor:pointer;transition:.2s;position:relative}
+.step.done{background:var(--green-dim);border-color:var(--green-bdr)}
+.step .top{display:flex;gap:12px;align-items:flex-start}
+.check{flex:0 0 auto;width:24px;height:24px;border-radius:8px;border:2px solid var(--sub);margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:14px;color:transparent;transition:.2s}
+.step.done .check{background:var(--green);border-color:var(--green);color:#10251a}
+.step h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:15.5px;margin-bottom:4px}
+.step.done h3{color:var(--green)}
+.step p{color:var(--sub);font-size:13.5px}
+.step p b{color:var(--txt)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:4px 9px;border-radius:6px;border:1px solid var(--line);background:var(--bg2)}
+.chip.go{color:var(--blue);border-color:rgba(90,169,255,.4)}
+.chip.click{color:var(--gold);border-color:var(--gold-bdr)}
+.chip.type{color:var(--purple);border-color:rgba(185,138,255,.4)}
+.chip.do{color:var(--green);border-color:var(--green-bdr)}
+
+.code{position:relative;background:#141210;border:1px solid var(--line);border-radius:10px;padding:12px 90px 12px 14px;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#e8dfc9;white-space:pre-wrap;word-break:break-word}
+.copy{position:absolute;top:8px;right:8px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;background:var(--gold);color:#1a1510;border:none;border-radius:6px;padding:6px 10px;cursor:pointer}
+.copy.ok{background:var(--green)}
+
+.warn{border:1px solid var(--gold-bdr);background:var(--gold-dim);border-radius:12px;padding:14px 16px;margin:14px 0;font-size:13.5px}
+.warn b{color:var(--gold)}
+.warn .t{font-family:'Archivo',sans-serif;font-weight:800;color:var(--gold);display:flex;gap:8px;margin-bottom:4px}
+
+/* GOAL COVERAGE TABLE */
+.map{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.map th{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);text-align:left;padding:8px 10px;border-bottom:2px solid var(--gold-bdr)}
+.map td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.map td:first-child{font-weight:700}
+.tagpill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;white-space:nowrap}
+.tagpill.now{background:var(--green-dim);color:var(--green)}
+.tagpill.free{background:rgba(90,169,255,.15);color:var(--blue)}
+.tagpill.later{background:var(--gold-dim);color:var(--gold)}
+
+/* ROADMAP */
+.road{position:relative;margin:16px 0 8px;padding-left:26px}
+.road::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.rnode{position:relative;margin-bottom:16px}
+.rnode::before{content:"";position:absolute;left:-22px;top:4px;width:12px;height:12px;border-radius:99px;background:var(--gold);border:2px solid var(--bg)}
+.rnode.dim::before{background:var(--sub)}
+.rnode .when{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.rnode.dim .when{color:var(--sub)}
+.rnode h4{font-family:'Archivo',sans-serif;font-weight:800;font-size:15px;margin:2px 0 3px}
+.rnode p{font-size:13px;color:var(--sub)}
+
+.footer{margin-top:44px;text-align:center;font-family:'Archivo',sans-serif;font-weight:900;font-size:22px;color:var(--gold)}
+.reset{display:block;margin:18px auto 0;font-family:'JetBrains Mono',monospace;font-size:11px;background:none;border:1px solid var(--line);color:var(--sub);border-radius:8px;padding:8px 14px;cursor:pointer}
+.meter{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.meter .row{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:12px}
+.meter .row b{color:var(--gold);font-size:15px}
+.bar{height:7px;background:#151310;border-radius:99px;margin-top:7px;overflow:hidden}
+.bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--gold),#ffd056);border-radius:99px;transition:width .4s}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <div class="kicker">BUILDX // GOOGLE ADS — BUDGET REALITY CHECK</div>
+  <h1>At $50/Day, You Don't Run 5 Campaigns.<br><span>You Run One — Well.</span></h1>
+  <p>You asked the right question. Splitting $50/day across five campaigns is the #1 way small budgets get wasted. Here's the math on why, and the phased structure that actually serves all five of your goals without starving the only one that pays the bills.</p>
+
+  <div class="verdict">
+    <div class="big">✕</div>
+    <div>
+      <h2>The 5-campaign plan was built for a bigger budget.</h2>
+      <p>Google's bidding AI needs <b>~30–50 conversions per month per campaign</b> to learn. At $50/day you can barely feed <b>one</b> campaign that much. Five campaigns = five starving learners, none of them ever gets smart, and your money evaporates on clicks that don't close.</p>
+    </div>
+  </div>
+
+  <div class="mathgrid">
+    <div class="mcard bad">
+      <div class="tag">✕ Split 5 ways</div>
+      <div class="line"><span>Non-Brand Search</span><b>~$25/day</b></div>
+      <div class="line"><span>Video views</span><b>~$10/day</b></div>
+      <div class="line"><span>Demand Gen</span><b>~$10/day</b></div>
+      <div class="line"><span>Brand</span><b>~$5/day</b></div>
+      <div class="line"><span>Clicks to the money campaign</span><b>~4/day</b></div>
+      <div class="verdict-line">→ Never hits learning threshold. No PCC data. Flatline.</div>
+    </div>
+    <div class="mcard good">
+      <div class="tag">✓ Concentrated</div>
+      <div class="line"><span>Non-Brand Search (ADU → PCC)</span><b>~$47/day</b></div>
+      <div class="line"><span>Brand (capped)</span><b>~$3/day</b></div>
+      <div class="line"><span>Est. ADU-vertical CPC*</span><b>~$4–7</b></div>
+      <div class="line"><span>Clicks to the money campaign</span><b>~7–11/day</b></div>
+      <div class="verdict-line">→ ~15–27 PCC/mo possible. Enough to actually optimize.</div>
+    </div>
+  </div>
+  <p style="font-size:11.5px;color:var(--sub);font-family:'JetBrains Mono',monospace">* Estimate — pull your real CPC from Keyword Planner before launch. All-industry avg is ~$5.42 in 2026; home-services/contractor runs $3–7.</p>
+</div>
+
+<div class="tabs" id="tabs">
+  <button class="tab active" data-t="t0">🎯 THE SMARTER PLAN</button>
+  <button class="tab" data-t="t1">🗺 ALL 5 GOALS, COVERED</button>
+  <button class="tab" data-t="t2">🔧 BUILD THE ONE CAMPAIGN</button>
+  <button class="tab" data-t="t3">📈 THE UNLOCK LADDER</button>
+</div>
+
+<!-- ============ T0: THE SMARTER PLAN ============ -->
+<div class="panel show" id="t0">
+  <div class="phase"><span class="num">TL;DR</span> Run 1 campaign now. Add the rest as rewards.</div>
+  <div class="phase-sub">Campaign count at a small budget isn't decided by how many goals you have — it's capped by how many conversions you can generate. You can feed one. So the five goals get served in <b>sequence and by overlap</b>, not in parallel.</div>
+
+  <div class="road">
+    <div class="rnode">
+      <div class="when">NOW · $50/day</div>
+      <h4>1 Search campaign: ADU Non-Brand → Let's Talk</h4>
+      <p>This single campaign does double duty: it's your "ADU search domination" goal AND your "PCC bookings" goal — because they're literally the same thing. Someone searches "adu builder massachusetts," clicks, lands on Let's Talk, submits. That's both goals in one motion.</p>
+    </div>
+    <div class="rnode">
+      <div class="when">NOW · ~$3/day carve-out</div>
+      <h4>+ Tiny Brand campaign (capped)</h4>
+      <p>Optional but cheap. Protects "BuildX" from competitors once your podcast + Meta ads create branded searches. Barely spends. Only add once you confirm people actually search your name.</p>
+    </div>
+    <div class="rnode dim">
+      <div class="when">UNLOCK · ~15–30 PCC/mo</div>
+      <h4>+ Demand Gen retargeting → BuildX.com traffic</h4>
+      <p>Your "website traffic" goal. Waits because it's cheap reach that's wasted until you have warm audiences to retarget. By the time you unlock it, your Search campaign + organic will have filled the retargeting pool.</p>
+    </div>
+    <div class="rnode dim">
+      <div class="when">UNLOCK · budget ≥ $100/day</div>
+      <h4>+ Video views campaign → YouTube growth</h4>
+      <p>Your "YouTube views" goal. Waits because at $50/day, paying for views steals from the only campaign closing leads — and your content engine (Meta + organic + podcast) already drives views for free.</p>
+    </div>
+  </div>
+
+  <div class="warn"><div class="t">⚠ SIGNAL CHECK — The insight that reframes everything</div>
+  Only <b>2 of your 5 goals</b> actually need paid dollars right now, and they're the same campaign. <b>YouTube views</b> and <b>Learning Center SEO</b> aren't paid-ad problems at this budget — they're content and SEO problems your existing engine already handles. <b>Website traffic</b> is mostly a free byproduct of the Search campaign. Don't pay for what you're already getting.</div>
+</div>
+
+<!-- ============ T1: ALL 5 GOALS COVERED ============ -->
+<div class="panel" id="t1">
+  <div class="phase"><span class="num">01</span> Every Goal Still Gets Served</div>
+  <div class="phase-sub">Concentrating budget doesn't abandon your other four goals — it just serves them the smart way instead of the expensive way.</div>
+
+  <table class="map">
+    <tr><th>Your Goal</th><th>How It's Served at $50/day</th><th>Status</th></tr>
+    <tr>
+      <td>ADU search domination</td>
+      <td>The one Search campaign. All budget here. This is the war.</td>
+      <td><span class="tagpill now">PAID NOW</span></td>
+    </tr>
+    <tr>
+      <td>PCC bookings / form fills</td>
+      <td>Same campaign — it's optimized <i>toward</i> the Let's Talk conversion. Not separate.</td>
+      <td><span class="tagpill now">PAID NOW</span></td>
+    </tr>
+    <tr>
+      <td>Traffic to BuildX.com</td>
+      <td>Byproduct of Search now; dedicated Demand Gen retargeting once you unlock it.</td>
+      <td><span class="tagpill later">UNLOCK</span></td>
+    </tr>
+    <tr>
+      <td>YouTube video views</td>
+      <td>Organic + Meta + podcast already do this free. Paid Video waits for $100/day+.</td>
+      <td><span class="tagpill free">FREE ENGINE</span></td>
+    </tr>
+    <tr>
+      <td>Learning Center SEO</td>
+      <td>This is an SEO win, not a paid one. Articles double as landing pages for cost/info keywords + become a retargeting audience later.</td>
+      <td><span class="tagpill free">SEO / SUPPORT</span></td>
+    </tr>
+  </table>
+
+  <div class="step" data-key="g1"><div class="top"><div class="check">✓</div><div>
+    <h3>Learning Center pulls its weight without a nickel of ad spend</h3>
+    <p>Point cost/timeline keywords ("adu cost massachusetts") at the matching article instead of Let's Talk — info searchers bounce off a contact page but read an article. That lifts Quality Score (cheaper clicks) and every reader drops into a retargeting pool for later. <b>Check Search Console first:</b> if an article already ranks top-3 organically for a term, don't pay for that click — spend it where you're invisible.</p>
+  </div></div></div>
+
+  <div class="step" data-key="g2"><div class="top"><div class="check">✓</div><div>
+    <h3>Build audiences on day one even though you won't use them yet</h3>
+    <p>They need weeks to fill. Create them now so they're ready when you unlock Demand Gen: site visitors 30d, Learning Center readers 90d, Let's Talk non-submitters, YouTube viewers 90d, and upload the HubSpot PCC list as Customer Match. Free to build, expensive to have skipped.</p>
+    <div class="chips"><span class="chip click">🖱 Tools → Audience Manager → Segments</span></div>
+  </div></div></div>
+</div>
+
+<!-- ============ T2: BUILD THE ONE ============ -->
+<div class="panel" id="t2">
+  <div class="phase"><span class="num">02</span> Build the One Campaign That Matters</div>
+  <div class="phase-sub">Tracking first — the bidding AI is blind without it (your fbclid/CAPI lesson, Google edition). Then one lean, high-intent Search campaign.</div>
+
+  <div class="step" data-key="c1"><div class="top"><div class="check">✓</div><div>
+    <h3>Verify the PCC conversion fires BEFORE spending a dollar</h3>
+    <p>Install the Google tag, create the primary conversion on the <b>HubSpot form-submit / thank-you state</b> (not the page view), then submit a test and confirm it registers. A broken conversion at this budget means 100% of your money optimizes to noise.</p>
+    <div class="chips"><span class="chip click">🖱 Goals → Conversions → +New → "PCC Form Submit"</span><span class="chip do">✅ Test submit + verify</span></div>
+  </div></div></div>
+
+  <div class="step" data-key="c2"><div class="top"><div class="check">✓</div><div>
+    <h3>Lock geo to presence-only, served towns</h3>
+    <p>Radius over Plymouth County / South Shore / Upper Cape. Change Google's default from "Presence or interest" to <b>"Presence: people in or regularly in your locations"</b> — the default will spend your tiny budget on someone in Florida "interested in" Massachusetts.</p>
+  </div></div></div>
+
+  <div class="step" data-key="c3"><div class="top"><div class="check">✓</div><div>
+    <h3>Keep it to 2–3 tight ad groups, high-intent only</h3>
+    <p>At this budget, a focused list of 30–50 intent-rich keywords beats a sprawl of 500 every time. Skip the town-by-town and broad research terms for now — just the hottest buyer intent:</p>
+    <p style="margin-top:8px"><b>AG1 · Builder intent</b> → Let's Talk</p>
+    <div class="code">"adu builder"
+"adu builder massachusetts"
+"adu contractor"
+"accessory dwelling unit builder"
+"adu builder south shore"<button class="copy">📋 COPY</button></div>
+    <p style="margin-top:10px"><b>AG2 · In-law / family intent</b> → Let's Talk</p>
+    <div class="code">"in law suite builder"
+"in law apartment builder"
+"granny flat builder massachusetts"
+"multigenerational home addition"<button class="copy">📋 COPY</button></div>
+    <p style="margin-top:10px"><b>AG3 · Cost intent</b> → Learning Center article (not Let's Talk)</p>
+    <div class="code">"adu cost massachusetts"
+"how much does an adu cost"
+"cost to build in law suite"<button class="copy">📋 COPY</button></div>
+  </div></div></div>
+
+  <div class="step" data-key="c4"><div class="top"><div class="check">✓</div><div>
+    <h3>Match type: phrase + exact. NOT broad (yet).</h3>
+    <p>Google will push broad match + Smart Bidding hard. That combo needs 30–50 conversions of history to be safe — you don't have it. Launch phrase/exact to protect every dollar, graduate to broad later once data exists.</p>
+  </div></div></div>
+
+  <div class="step" data-key="c5"><div class="top"><div class="check">✓</div><div>
+    <h3>Load negatives before launch — non-negotiable on a small budget</h3>
+    <p>One wasted click is a bigger % of $50 than of $500. Block researchers, renters, and job seekers at the campaign level day one:</p>
+    <div class="code">diy
+plans
+kit
+kits
+prefab
+free
+rent
+rental
+jobs
+salary
+career
+laws
+zoning
+permit application
+what is an adu
+course
+training<button class="copy">📋 COPY</button></div>
+  </div></div></div>
+
+  <div class="step" data-key="c6"><div class="top"><div class="check">✓</div><div>
+    <h3>Bidding: start Maximize Clicks (capped), then graduate</h3>
+    <p>Max Clicks with a max-CPC cap gathers data at the lowest cost while you learn. After ~30–50 conversions, move to Maximize Conversions, then Target CPA once you know your real cost per PCC. Don't start at Target CPA — the AI has no data to hit a target with.</p>
+  </div></div></div>
+
+  <div class="step" data-key="c7"><div class="top"><div class="check">✓</div><div>
+    <h3>RSAs in BuildX voice, ADU keyword pinned to Headline 1</h3>
+    <p>15 headlines / 4 descriptions per group, pulled from proven Meta hook lanes: price myth-bust ($274K), contractor-vetting, 100-day guarantee, walk-one-first / open tour. Same honest, no-slogan rules as your Facebook copy. No "all-electric," no RSVP language.</p>
+  </div></div></div>
+
+  <div class="warn"><div class="t">⚠ SIGNAL CHECK — Don't touch it for 2 weeks (except negatives)</div>
+  <b>New campaigns need 30–60 days to learn</b> — judging it after a few days and flipping it off tanks your momentum and Quality Score. The one daily job in week one: read the <b>Search Terms report</b> and add negatives. Everything else, leave alone and let it learn.</div>
+</div>
+
+<!-- ============ T3: THE UNLOCK LADDER ============ -->
+<div class="panel" id="t3">
+  <div class="phase"><span class="num">03</span> The Unlock Ladder</div>
+  <div class="phase-sub">You earn more campaigns — you don't launch them on hope. Each rung unlocks only when the data or the budget supports it. This is how you scale without ever starving the core.</div>
+
+  <div class="step" data-key="u1"><div class="top"><div class="check">✓</div><div>
+    <h3>Rung 1 · Add Brand campaign — when people search "BuildX"</h3>
+    <p>Trigger: you see branded searches showing up (podcast + Meta will create them). Cost: cap it at ~$3–5/day; it'll rarely spend that. Cheapest, highest-converting clicks in the account.</p>
+  </div></div></div>
+
+  <div class="step" data-key="u2"><div class="top"><div class="check">✓</div><div>
+    <h3>Rung 2 · Add Demand Gen retargeting — at ~15–30 PCC/mo</h3>
+    <p>Trigger: Search is producing steady PCCs AND your audiences have filled. This is your "BuildX.com traffic" goal done right — warm retargeting to site visitors + YouTube viewers, running your Meta creative. Fund it with a small budget bump or by trimming Search's lowest ad group, not by splitting the core.</p>
+  </div></div></div>
+
+  <div class="step" data-key="u3"><div class="top"><div class="check">✓</div><div>
+    <h3>Rung 3 · Add Video views — at budget ≥ $100/day</h3>
+    <p>Trigger: total budget can afford it without touching Search. This is your "YouTube views" goal. CPVs are pennies, it builds the awareness pool, and your Descript hook-mining is exactly the first-5-seconds skill it needs. Judge it on view rate + audience growth, never on cost per PCC.</p>
+  </div></div></div>
+
+  <div class="step" data-key="u4"><div class="top"><div class="check">✓</div><div>
+    <h3>Rung 4 · Test Performance Max — at ~20–30 PCC/mo, budget ≥ $150/day</h3>
+    <p>Trigger: enough conversion volume to feed it (rule of thumb: daily budget ≥ 15× target CPA) and proven ROI to protect. Feed it your best Meta assets in all 5 aspect ratios + Customer Match signals, and set brand exclusions so it doesn't cannibalize the Brand campaign.</p>
+  </div></div></div>
+
+  <div class="warn"><div class="t">⚠ SIGNAL CHECK — The one number that means "domination"</div>
+  Watch <b>Impression Share on your non-brand ADU keywords</b>. Search-term dominance literally IS this number climbing toward the top of the auction. When it's high and cost-per-PCC is under your ~$18.75 Meta benchmark, that's your signal to climb the next rung. Build the monthly Google Ads Excel SOP mirroring your Meta one — Cost per PCC as the hero metric.</div>
+
+  <div class="meter">
+    <div class="row"><span>SETUP PROGRESS</span><b id="pct">0%</b></div>
+    <div class="bar"><i id="fill"></i></div>
+  </div>
+
+  <div class="footer">Just Build Baby! 🇺🇸</div>
+  <button class="reset" id="reset">RESET PROGRESS</button>
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.step').forEach(s=>{
+  s.addEventListener('click',e=>{
+    if(e.target.classList.contains('copy'))return;
+    s.classList.toggle('done');update();
+  });
+});
+function update(){
+  const all=document.querySelectorAll('.step').length;
+  const done=document.querySelectorAll('.step.done').length;
+  const p=all?Math.round(done/all*100):0;
+  const pe=document.getElementById('pct'),fe=document.getElementById('fill');
+  if(pe)pe.textContent=p+'%';if(fe)fe.style.width=p+'%';
+}
+document.querySelectorAll('.copy').forEach(b=>{
+  b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const txt=b.parentElement.textContent.replace('📋 COPY','').replace('✅ COPIED','').trim();
+    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy')}catch(_){}
+    document.body.removeChild(ta);
+    if(navigator.clipboard)navigator.clipboard.writeText(txt).catch(()=>{});
+    b.textContent='✅ COPIED';b.classList.add('ok');
+    setTimeout(()=>{b.textContent='📋 COPY';b.classList.remove('ok')},1600);
+  });
+});
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('show'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.t).classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('done'));update();
+});
+update();
+</script>
+</body>
+</html>
