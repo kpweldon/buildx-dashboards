@@ -1,14 +1,54 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BuildX Jobsite Coverage</title>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin><link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Oswald:wght@500;600;700&display=swap'>
 <style>
- *{box-sizing:border-box} body{margin:0;background:#0b0e0d;color:#e7f0e7;font-family:'DM Mono','SF Mono',Menlo,monospace;padding:30px 18px 60px}
- .wrap{max-width:1240px;margin:0 auto} .badge{background:#F5A623;color:#111;font-weight:900;padding:5px 12px;border-radius:6px;letter-spacing:.5px}
- h1{font-size:21px;margin:0 0 4px;display:flex;gap:12px;align-items:center;flex-wrap:wrap} .tag{color:#F5A623;font-size:13px;font-weight:700}
- .meta{color:#7f8c82;font-size:12px;margin:8px 0 14px}
+/* ---- BuildX house style: amber #FFB81C only, condensed display, zero shadows ---- */
+:root{
+  --amber:#FFB81C; --ink:#0B0B0C; --panel:#121214; --hair:rgba(255,255,255,.13);
+  --white:#FFFFFF; --body:rgba(255,255,255,.92); --mute:rgba(255,255,255,.60);
+  --disp:'Franklin Gothic Condensed','Franklin Gothic Demi Cond','Oswald',
+         'Arial Narrow',Helvetica,sans-serif;
+  --mono:'Space Mono','SF Mono',Menlo,monospace;
+}
+*{text-shadow:none!important;box-shadow:none!important}
+body{background:var(--ink);color:var(--body);font-family:var(--disp);
+     font-size:15px;letter-spacing:.005em}
+h1,h2,h3,.jn,.ct,.chip,.sc,.btn,.pill,.badge,.add,.q,.st,.fld,thead th,.upd{
+     font-family:var(--disp)}
+h1{font-weight:700;letter-spacing:.01em;text-transform:uppercase;font-size:25px}
+h2{text-transform:uppercase}
+/* Space Mono all-caps amber kickers + every small meta line */
+.meta,.town,.fs,.fw,.jstat,.dim,.nx,.cnt,.via,.dn,.note,.contact,.pm,.cn,code,
+.nxt,footer,.new{font-family:var(--mono)}
+.meta,.cnt{text-transform:uppercase;letter-spacing:.16em;font-size:10px}
+.tag{font-family:var(--mono);text-transform:uppercase;letter-spacing:.26em;
+     font-size:10px;color:var(--amber);font-weight:700}
+.badge{background:var(--amber);color:var(--ink);font-weight:700;letter-spacing:.06em}
+/* amber is the only accent */
+.pill,.btn,.add,.q,.upd{border-radius:4px}
+.btn:hover,.add:hover,.q:hover,.upd:hover{border-color:var(--amber);color:var(--amber)}
+.chip,.sc{border-radius:3px;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
+.jn,.ct{font-weight:700;letter-spacing:.01em}
+.jn{font-size:15px} .ct{font-size:14px}
+.st,.fld{font-family:var(--disp);font-size:13.5px}
+.note{font-style:normal;font-size:10.5px;letter-spacing:.03em}
+thead th{text-transform:uppercase;letter-spacing:.18em;font-family:var(--mono);font-size:9.5px}
+.scroll,.card,.how,.rule,.flagbox,.newbox{border-radius:6px}
+/* row rules instead of heavy borders */
+td{border-bottom:1px solid rgba(255,255,255,.09)}
+.card{background:var(--panel);border-color:var(--hair)}
+.how,.rule{background:var(--panel);border-color:var(--hair);font-size:12px;line-height:1.6}
+.how b,.rule b{color:var(--amber)}
+footer{letter-spacing:.06em;font-size:10px;text-transform:uppercase}
+
+ *{box-sizing:border-box} body{margin:0;padding:26px 18px 60px}
+ .wrap{max-width:1240px;margin:0 auto} .badge{background:#FFB81C;color:#111;font-weight:900;padding:5px 12px;border-radius:6px;letter-spacing:.5px}
+ h1{margin:0 0 4px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+ .meta{color:var(--mute);margin:8px 0 13px}
  .banner{padding:8px 13px;border-radius:8px;font-size:11.5px;font-weight:700;display:inline-block;margin-bottom:16px}
  .rule{background:#0f1512;border:1px solid #223029;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#9fb3a4;line-height:1.7}
- .rule b{color:#F5A623}
+ .rule b{color:#FFB81C}
  .pills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px} .pill{border:1px solid;border-radius:20px;padding:3px 11px;font-size:11px;font-weight:800}
  .flagbox{background:#14171a;border:1px solid #3a3f45;border-radius:10px;padding:12px 15px;margin:14px 0 18px;font-size:12px;color:#aab3ba} .flagbox ul{margin:6px 0 0;padding-left:20px} .flagbox li{padding:2px 0}
  .scroll{overflow-x:auto;border:1px solid #223029;border-radius:12px} table{border-collapse:collapse;width:100%;font-size:13px;min-width:1080px}
@@ -36,11 +76,11 @@
  .rule{background:#0f1512;border:1px solid #223029;border-radius:10px;padding:12px 15px;margin-bottom:16px;font-size:12.5px;color:#9fb3a4}
  .bar{display:flex;gap:9px;flex-wrap:wrap;margin-top:11px}
  .upd{display:inline-block;background:#1a221d;border:1px solid #2f4034;color:#9fb3a4;font-size:11px;padding:7px 13px;border-radius:7px;text-decoration:none}
- .upd:hover{border-color:#F5A623;color:#F5A623}
- .upd.big{background:#F5A623;border-color:#F5A623;color:#111;font-weight:900;letter-spacing:.5px;padding:8px 17px}
+ .upd:hover{border-color:#FFB81C;color:#FFB81C}
+ .upd.big{background:#FFB81C;border-color:#FFB81C;color:#111;font-weight:900;letter-spacing:.5px;padding:8px 17px}
  .upd.big:hover{color:#111;filter:brightness(1.08)}
  .rowupd{display:inline-block;margin-top:7px;font-size:10px;color:#5c655c;text-decoration:none;border:1px solid #223029;border-radius:6px;padding:2px 7px}
- .rowupd:hover{border-color:#F5A623;color:#F5A623}
+ .rowupd:hover{border-color:#FFB81C;color:#FFB81C}
 </style></head><body><div class="wrap">
 <h1><span class="badge">BuildX</span> Jobsite Coverage <span class="tag">Testimonial Capture</span></h1>
 <div class="meta">Active ADU builds in construction · updated August 13, 2026 · 14 jobs</div>
