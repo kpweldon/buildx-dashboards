@@ -70,6 +70,30 @@ footer{letter-spacing:.06em;font-size:10px;text-transform:uppercase}
  .ck input:checked::after{content:'✓';position:absolute;inset:0;color:#04140a;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center}
  .ck input:checked + span{color:#7fdca3;text-decoration:line-through;text-decoration-color:#2f6f4f}
  footer{color:#5c655c;font-size:11px;margin-top:20px;text-align:center;line-height:1.7} footer a{color:#8fb7ff;text-decoration:none}
+ details{margin:0 0 12px} summary{cursor:pointer;list-style:none;outline:none}
+ summary::-webkit-details-marker{display:none}
+ summary::after{content:'▾';margin-left:7px;color:#5c655c;font-size:10px}
+ details[open] summary::after{content:'▴'}
+ .help{background:none;border:0;padding:0;margin:0 0 10px}
+ .help>summary{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--hair);border-radius:4px;
+   padding:2px 8px;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:#4a544c}
+ .help>summary::after{font-size:8px}
+ .help>summary:hover,.help[open]>summary{border-color:var(--amber);color:var(--amber)}
+ .helpbody{background:var(--panel);border:1px solid var(--hair);border-radius:6px;padding:9px 13px;
+   margin-top:7px;font-size:11.5px;line-height:1.65;color:#9fb3a4}
+ .notif{background:#1a1408;border:1px solid rgba(255,184,28,.32);border-radius:6px;padding:0}
+ .notif>summary{display:flex;align-items:center;gap:9px;padding:7px 12px;font-family:var(--mono);
+   font-size:10px;letter-spacing:.2em;color:var(--amber);text-transform:uppercase}
+ .bang{background:var(--amber);color:#0b0b0c;font-weight:900;width:15px;height:15px;border-radius:3px;
+   display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0}
+ .ncount{background:rgba(255,184,28,.2);border-radius:20px;padding:1px 8px;letter-spacing:.06em}
+ .nhint{color:#7a6a45;letter-spacing:.04em;font-size:9.5px;text-transform:none;flex:1}
+ .nbody{border-top:1px solid rgba(255,184,28,.18)}
+ .nrow{display:flex;gap:10px;align-items:baseline;padding:5px 12px;font-size:12px;
+   border-bottom:1px solid rgba(255,255,255,.05)}
+ .nrow b{color:var(--amber);font-family:var(--mono);font-size:10.5px;letter-spacing:.06em}
+ .ntown,.nst{font-family:var(--mono);font-size:9.5px;color:#6f7a71;letter-spacing:.06em}
+ .nst{margin-left:auto;text-transform:uppercase}
 
  .banner{background:#101a14;color:#9fe3bf;border:1px solid #2c4534}
  .jn{width:15%;white-space:nowrap} .jsc{width:36%}

@@ -97,6 +97,18 @@ footer{letter-spacing:.06em;font-size:10px;text-transform:uppercase}
  .add:hover{border-color:#FFB81C;color:#FFB81C}
  .save{position:fixed;right:18px;bottom:18px;background:#16a34a;color:#04140a;font-weight:900;font-size:11px;padding:7px 14px;border-radius:20px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:9}
  .save.on{opacity:1} .save.err{background:#ef4444;color:#fff}
+ details{margin:0 0 12px} summary{cursor:pointer;list-style:none;outline:none}
+ summary::-webkit-details-marker{display:none}
+ summary::after{content:'▾';margin-left:7px;color:#5c655c;font-size:10px}
+ details[open] summary::after{content:'▴'}
+ .help{background:none;border:0;padding:0;margin:0 0 10px}
+ .help>summary{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--hair);border-radius:4px;
+   padding:2px 8px;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:#4a544c}
+ .help>summary::after{font-size:8px}
+ .help>summary:hover,.help[open]>summary{border-color:var(--amber);color:var(--amber)}
+ .helpbody{background:var(--panel);border:1px solid var(--hair);border-radius:6px;padding:9px 13px;
+   margin-top:7px;font-size:11.5px;line-height:1.65;color:#9fb3a4}
+ .bar{margin:0 0 14px}
  footer{color:#5c655c;font-size:11px;margin-top:26px;text-align:center;line-height:1.8}
  footer a{color:#8fb7ff;text-decoration:none}
 </style></head><body><div class="wrap">
