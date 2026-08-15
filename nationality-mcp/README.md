@@ -117,8 +117,17 @@ Ask Claude *"what nationality is the name Buz likely to be?"* — it should call
 
 ### Claude Code / this repo
 
-For terminal sessions, `.mcp.json` in the repo root already points at the
-tunnel hostname. Change the URL there if yours differs.
+For terminal sessions, copy the template at the repo root and fill in your
+real hostname:
+
+```bash
+cp .mcp.json.example .mcp.json     # .mcp.json is gitignored
+export BUILDX_NATIONALITY_TOKEN=…  # only if you set AUTH_TOKEN
+```
+
+It ships as `.example` on purpose — a live `.mcp.json` is auto-loaded by every
+Claude Code session in this repo, so a committed placeholder hostname would
+mean a failed connector on every session start.
 
 ---
 
