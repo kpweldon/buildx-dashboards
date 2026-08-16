@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "buildx-nationality": {
+      "type": "http",
+      "url": "https://nationality.example.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${BUILDX_NATIONALITY_TOKEN}"
+      }
+    }
+  }
+}
