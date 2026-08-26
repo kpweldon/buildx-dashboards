@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuildX Testimonial Tracker</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2713%27%20fill%3D%27%230B0B0C%27%2F%3E%3Cg%20stroke%3D%27%23FFB81C%27%20stroke-width%3D%2711%27%20stroke-linecap%3D%27square%27%3E%3Cline%20x1%3D%2717%27%20y1%3D%2717%27%20x2%3D%2747%27%20y2%3D%2747%27%2F%3E%3Cline%20x1%3D%2747%27%20y1%3D%2717%27%20x2%3D%2717%27%20y2%3D%2747%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='preconnect' href='https://fonts.gstatic.com' crossorigin><link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Oswald:wght@500;600;700&display=swap'>
+<style>
+/* ---- BuildX house style: brand chrome, plain category colours, zero shadows ---- */
+:root{
+  --amber:#FFB81C; --ink:#0B0B0C; --panel:#141416; --hair:rgba(255,255,255,.14);
+  --white:#FFFFFF; --body:rgba(255,255,255,.92); --mute:rgba(255,255,255,.58);
+  --line:rgba(255,255,255,.08);
+  --disp:'Franklin Gothic Condensed','Franklin Gothic Demi Cond','Oswald',
+         'Arial Narrow',Helvetica,sans-serif;
+  --meta:'Poppins','Helvetica Neue',Arial,sans-serif;
+}
+*{text-shadow:none!important;box-shadow:none!important}
+body{background:var(--ink);color:var(--body);font-family:var(--disp);font-size:15px}
+.wrap{max-width:1180px!important}
+h1,h2,h3,.jn,.ct,.chip,.sc,.badge,.st,.fld{font-family:var(--disp)}
+h1{font-weight:700;letter-spacing:.01em;text-transform:uppercase;font-size:24px}
+h2{text-transform:uppercase}
+/* every small line is Poppins bold — dates, counts, labels, notes */
+.meta,.town,.fs,.fw,.jstat,.dim,.nx,.cnt,.via,.dn,.note,.contact,.pm,.cn,code,.nxt,
+footer,.new,.btn,.pill,.add,.q,.upd,.lk,.tag,thead th,summary,.lhead,.ncount,.nhint,
+.ntown,.nst,.lock,.ck,.save,.empty{font-family:var(--meta);font-weight:600}
+.meta,.cnt,.tag,thead th,.lhead,.lock,summary{text-transform:uppercase;letter-spacing:.09em}
+.meta{font-size:10px} .tag{font-size:10px;color:var(--amber);font-weight:700}
+thead th{font-size:9px;font-weight:700;color:var(--mute)}
+/* ---- chrome: brand only ---- */
+.badge{background:var(--amber);color:var(--ink);font-weight:800;letter-spacing:.05em}
+.btn,.add,.q,.upd,.pill{border-radius:4px;font-size:10.5px;letter-spacing:.05em}
+.btn,.add,.q,.upd{background:#1B1B1E;border:1px solid var(--hair);color:var(--mute)}
+.btn:hover,.add:hover,.q:hover,.upd:hover{border-color:var(--amber);color:var(--amber)}
+.btn.send,.upd.big,.q.on,.btn.go{background:var(--amber);border-color:var(--amber);
+  color:var(--ink);font-weight:800}
+.btn.send:hover,.upd.big:hover{color:var(--ink);filter:brightness(1.08)}
+.btn.go:disabled,.btn.send:disabled{background:#1B1B1E;border-color:var(--hair);color:#4A4A4E}
+.save{background:var(--amber);color:var(--ink);font-weight:800}
+.save.err{background:#D93A3A;color:var(--white)}
+/* ---- colour only where it categorises ---- */
+.chip,.sc{border-radius:3px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+select.sc{appearance:none;-webkit-appearance:none;border:0;color:var(--ink);font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 7px;
+  font-size:9px;cursor:pointer;outline:none;font-family:var(--meta)}
+select.sc option{background:#141416;color:#fff;font-size:12px;letter-spacing:0;text-transform:none}
+.jn,.ct{font-weight:700;letter-spacing:.01em} .jn{font-size:15px} .ct{font-size:14px}
+.st,.fld{font-size:13.5px} .note{font-style:normal;font-size:10.5px}
+.scroll,.card,.how,.helpbody,.flagbox,.notif{border-radius:5px}
+td{border-bottom:1px solid var(--line)}
+.card{background:var(--panel);border-color:var(--hair)}
+.helpbody{background:var(--panel);border-color:var(--hair);font-size:11.5px;line-height:1.6}
+.helpbody b{color:var(--amber)}
+footer{letter-spacing:.05em;font-size:9.5px;text-transform:uppercase;color:#54545A}
+/* ---- mobile: the table stacks into cards, everything goes single column ---- */
+@media (max-width:820px){
+  body{padding:14px 11px 40px}
+  h1{font-size:19px;gap:8px} .lock{margin-left:0}
+  .cards{grid-template-columns:1fr!important}
+  .scroll{border:0;overflow:visible}
+  table{min-width:0!important} thead{display:none}
+  tbody tr{display:block;background:var(--panel);border:1px solid var(--hair);
+    border-left-width:4px;border-radius:5px;margin-bottom:8px}
+  tbody td{display:block;width:auto!important;border:0;padding:6px 12px}
+  tbody td+td{border-top:1px solid var(--line)}
+  body.list .card{grid-template-columns:1fr!important;gap:4px;border-left-width:3px;
+    border:1px solid var(--hair);border-radius:5px;margin-bottom:7px;padding:8px 11px}
+  body.list .lhead{display:none!important}
+  body.list .det{max-height:none!important}
+}
+
+ *{box-sizing:border-box} body{margin:0;padding:20px 18px 50px}
+ .wrap{max-width:1180px;margin:0 auto} .badge{background:#FFB81C;color:#111;font-weight:900;padding:5px 12px;border-radius:6px;letter-spacing:.5px}
+ h1{margin:0 0 3px;display:flex;gap:11px;align-items:center;flex-wrap:wrap;width:100%}
+ .meta{color:var(--mute);margin:8px 0 13px}
+ .banner{padding:8px 13px;border-radius:8px;font-size:11.5px;font-weight:700;display:inline-block;margin-bottom:16px}
+ .rule{background:#0f1512;border:1px solid #223029;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#9fb3a4;line-height:1.7}
+ .rule b{color:#FFB81C}
+ .pills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px} .pill{border:1px solid;border-radius:20px;padding:3px 11px;font-size:11px;font-weight:800}
+ .flagbox{background:#14171a;border:1px solid #3a3f45;border-radius:10px;padding:12px 15px;margin:14px 0 18px;font-size:12px;color:#aab3ba} .flagbox ul{margin:6px 0 0;padding-left:20px} .flagbox li{padding:2px 0}
+ .scroll{overflow-x:auto;border:1px solid #223029;border-radius:12px} table{border-collapse:collapse;width:100%;font-size:13px;min-width:1080px}
+ thead th{position:sticky;top:0;background:#101614;color:#7f8c82;font-size:10.5px;letter-spacing:1px;text-align:left;padding:10px 15px;border-bottom:1px solid #223029;font-weight:800;z-index:2}
+ td{padding:9px 13px;border-bottom:1px solid #16211b;vertical-align:top} tr:hover td{background:#111614}
+ .jn{font-weight:800;color:#eafaea;width:27%} .town{color:#7f8c82;font-weight:400;font-size:12px;margin-top:2px}
+ .contact{margin-top:6px;display:flex;flex-direction:column;gap:2px;font-weight:400;font-size:10.5px;line-height:1.5}
+ .contact a{color:#8fb7ff;text-decoration:none} .contact a:hover{text-decoration:underline}
+ .contact .cn{color:#6f7a71} .contact .pm{color:#5c655c}
+ .jsc{width:27%;font-size:11.5px;line-height:1.6}
+ .jstat{display:inline-block;background:#152018;border:1px solid #2c4534;color:#a9d8bb;font-size:10px;font-weight:800;letter-spacing:.4px;padding:2px 8px;border-radius:20px;margin-bottom:5px}
+ .ph{color:#e7f0e7;font-weight:700} .nx{color:#8a9690} .dim{color:#5c655c}
+ .fs{color:#8fb7ff;font-size:10.5px;margin-top:3px} .fw{color:#e3b26a;font-size:10.5px;margin-top:2px}
+ .chip{display:inline-block;font-weight:800;font-size:10.5px;padding:3px 9px;border-radius:20px;white-space:nowrap;letter-spacing:.4px;color:#0b0e0d}
+ .ckc{width:19%} tbody td:nth-child(3){width:27%}
+ .ck{display:flex;align-items:center;gap:8px;font-size:11.5px;color:#9fb3a4;padding:3px 0}
+ .ck input{appearance:none;width:15px;height:15px;min-width:15px;border:1.5px solid #3a4a40;border-radius:4px;background:#0b0e0d;position:relative}
+ .ck input:checked{background:#17A34A;border-color:#17A34A}
+ .ck input:checked::after{content:'✓';position:absolute;inset:0;color:#04140a;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center}
+ .ck input:checked + span{color:rgba(255,255,255,.45);text-decoration:line-through}
+ .lock{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.16em;
+   color:#ff8b8b;border:1px solid #6b2222;background:#1c0f0f;border-radius:4px;padding:2px 8px;cursor:help}
+ footer{color:#5c655c;font-size:11px;margin-top:20px;text-align:center;line-height:1.7} footer a{color:#8fb7ff;text-decoration:none}
+ details{margin:0 0 12px} summary{cursor:pointer;list-style:none;outline:none}
+ summary::-webkit-details-marker{display:none}
+ summary::after{content:'▾';margin-left:7px;color:#5c655c;font-size:10px}
+ details[open] summary::after{content:'▴'}
+ .help{background:none;border:0;padding:0;margin:0 0 10px}
+ .help>summary{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--hair);border-radius:4px;
+   padding:2px 8px;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:#4a544c}
+ .help>summary::after{font-size:8px}
+ .help>summary:hover,.help[open]>summary{border-color:var(--amber);color:var(--amber)}
+ .helpbody{background:var(--panel);border:1px solid var(--hair);border-radius:6px;padding:9px 13px;
+   margin-top:7px;font-size:11.5px;line-height:1.65;color:#9fb3a4}
+ .notif{background:#1a1408;border:1px solid rgba(255,184,28,.32);border-radius:6px;padding:0}
+ .notif>summary{display:flex;align-items:center;gap:9px;padding:7px 12px;font-family:var(--mono);
+   font-size:10px;letter-spacing:.2em;color:var(--amber);text-transform:uppercase}
+ .bang{background:var(--amber);color:#0b0b0c;font-weight:900;width:15px;height:15px;border-radius:3px;
+   display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0}
+ .ncount{background:rgba(255,184,28,.2);border-radius:20px;padding:1px 8px;letter-spacing:.06em}
+ .nhint{color:#7a6a45;letter-spacing:.04em;font-size:9.5px;text-transform:none;flex:1}
+ .nbody{border-top:1px solid rgba(255,184,28,.18)}
+ .nrow{display:flex;gap:10px;align-items:baseline;padding:5px 12px;font-size:12px;
+   border-bottom:1px solid rgba(255,255,255,.05)}
+ .nrow b{color:var(--amber);font-family:var(--mono);font-size:10.5px;letter-spacing:.06em}
+ .ntown,.nst{font-family:var(--mono);font-size:9.5px;color:#6f7a71;letter-spacing:.06em}
+ .nst{margin-left:auto;text-transform:uppercase}
+
+ .banner{background:#101a14;color:#9fe3bf;border:1px solid #2c4534}
+ .jn{width:15%;white-space:nowrap} .jsc{width:36%}
+ .rule{background:#0f1512;border:1px solid #223029;border-radius:10px;padding:12px 15px;margin-bottom:16px;font-size:12.5px;color:#9fb3a4}
+ .bar{display:flex;gap:9px;flex-wrap:wrap;margin-top:11px}
+ .upd{display:inline-block;background:#1a221d;border:1px solid #2f4034;color:#9fb3a4;font-size:11px;padding:7px 13px;border-radius:7px;text-decoration:none}
+ .upd:hover{border-color:#FFB81C;color:#FFB81C}
+ .upd.big{background:#FFB81C;border-color:#FFB81C;color:#111;font-weight:900;letter-spacing:.5px;padding:8px 17px}
+ .upd.big:hover{color:#111;filter:brightness(1.08)}
+ .rowupd{display:inline-block;margin-top:7px;font-size:10px;color:#5c655c;text-decoration:none;border:1px solid #223029;border-radius:6px;padding:2px 7px}
+ .rowupd:hover{border-color:#FFB81C;color:#FFB81C}
+</style></head><body><div class="wrap">
+<h1><span class="badge">BuildX</span> Testimonial Tracker <span class="tag">Testimonial Capture</span></h1>
+<div class="meta">Active ADU builds in construction · updated August 26, 2026 · 13 jobs</div>
+<div class="banner">Anonymized view — job codes only. Homeowner names and contact details are not published.</div>
+<div class="rule">Spotted something out of date, filmed something, or have an idea? Send it over — it opens a pre-written email in your own mail app.
+<div class="bar">
+<a class='upd big' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20testimonial%20tracker&body=Here%27s%20my%20update%3A%0A%0A%0AJob%20/%20topic%3A%0AWhat%20happened%3A%0AAnything%20needed%20from%20Kevin%3A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉️ SEND YOUR OWN UPDATE</a>
+<a class='upd' href='mailto:kevinw.buildx@gmail.com?subject=VIDEO%3A%20&body=Video%20idea%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>💡 send a video idea</a>
+</div></div>
+<div class="pills"><span class='pill' style='border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.75)'>Pre-testimonial <b style='color:#FFB81C'>9</b>/13</span> <span class='pill' style='border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.75)'>Final testimonial <b style='color:#FFB81C'>0</b>/13</span> <span class='pill' style='border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.75)'>Final walkthrough video <b style='color:#FFB81C'>0</b>/13</span></div>
+<div class="scroll"><table>
+<thead><tr><th>Job</th><th>Build phase</th><th>Coverage</th><th>Capture checklist</th></tr></thead>
+<tbody>
+<tr style='border-left:4px solid #FFB81C'><td class='jn'>#X1289<div class='town'>Plymouth</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1289&body=Job%3A%20%23X1289%20%28Plymouth%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Punch List <span class='dim'>Jul 6, 2026</span></div><div class='nx'>next · Inspect Window, inspect cabinet door <span class='dim'>Sep 2, 2026</span></div><div class='fs'>🏗 construction started Jan 30, 2026</div><div class='fw'>🏁 final walkthrough Jul 1, 2026</div></td><td><span class='chip' style='background:#FFB81C'>CONTACTED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #FFB81C'><td class='jn'>#X1231<div class='town'>Carver</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1231&body=Job%3A%20%23X1231%20%28Carver%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Job Closed - WON</div><div class='ph'>▸ Final Invoice - Project Completion <span class='dim'>Jul 30, 2026</span></div><div class='fs'>🏗 construction started Feb 10, 2026</div><div class='fw'>🏁 final walkthrough Jul 28, 2026</div></td><td><span class='chip' style='background:#FFB81C'>CONTACTED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #FFB81C'><td class='jn'>#X1460<div class='town'>Hanover</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1460&body=Job%3A%20%23X1460%20%28Hanover%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Install Windows &amp; Doors <span class='dim'>Aug 23, 2026</span></div><div class='nx'>next · Punch List <span class='dim'>Aug 27, 2026</span></div><div class='fs'>🏗 construction started May 8, 2026</div><div class='fw'>🏁 final walkthrough Aug 18, 2026</div></td><td><span class='chip' style='background:#FFB81C'>CONTACTED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled checked><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #FFB81C'><td class='jn'>#X1415<div class='town'>Hanson</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1415&body=Job%3A%20%23X1415%20%28Hanson%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Pour Slab <span class='dim'>Aug 24, 2026</span></div><div class='nx'>next · Dumpster Delivery <span class='dim'>Aug 27, 2026</span></div><div class='fs'>🏗 construction started Jul 13, 2026</div><div class='fw'>🏁 final walkthrough Nov 16, 2026</div></td><td><span class='chip' style='background:#FFB81C'>CONTACTED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #6B7280'><td class='jn'>#X1474<div class='town'>Plymouth</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1474&body=Job%3A%20%23X1474%20%28Plymouth%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Strip Footers <span class='dim'>Aug 26, 2026</span></div><div class='nx'>next · Rebar Inspection - Walls <span class='dim'>Aug 28, 2026</span></div><div class='fs'>🏗 construction started Aug 21, 2026</div></td><td><span class='chip' style='background:#6B7280'>QUEUED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #17A34A'><td class='jn'>#X1273<div class='town'>Cohasset</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1273&body=Job%3A%20%23X1273%20%28Cohasset%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Plumbing Finish Out <span class='dim'>Aug 26, 2026</span></div><div class='nx'>next · Driveway <span class='dim'>Aug 27, 2026</span></div><div class='fs'>🏗 construction started Feb 10, 2026</div><div class='fw'>🏁 final walkthrough Sep 4, 2026</div></td><td><span class='chip' style='background:#17A34A'>CAPTURED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled checked><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #17A34A'><td class='jn'>#X1263<div class='town'>Norwell</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1263&body=Job%3A%20%23X1263%20%28Norwell%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Final Invoice - Project Completion <span class='dim'>Aug 11, 2026</span></div><div class='fs'>🏗 construction started Feb 17, 2026</div><div class='fw'>🏁 final walkthrough Aug 7, 2026</div></td><td><span class='chip' style='background:#17A34A'>CAPTURED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled checked><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #17A34A'><td class='jn'>#X1416<div class='town'>Duxbury</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1416&body=Job%3A%20%23X1416%20%28Duxbury%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Vents and Ducts <span class='dim'>Aug 26, 2026</span></div><div class='nx'>next · Fourth Invoice - Weather Tight Exterior <span class='dim'>Aug 27, 2026</span></div><div class='fs'>🏗 construction started Mar 17, 2026</div><div class='fw'>🏁 final walkthrough Oct 7, 2026</div></td><td><span class='chip' style='background:#17A34A'>CAPTURED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled checked><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #17A34A'><td class='jn'>#X1403<div class='town'>Whitman</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1403&body=Job%3A%20%23X1403%20%28Whitman%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Run Vents <span class='dim'>Aug 26, 2026</span></div><div class='nx'>next · Blower Door Test <span class='dim'>Aug 29, 2026</span></div><div class='fs'>🏗 construction started Jun 4, 2026</div></td><td><span class='chip' style='background:#17A34A'>CAPTURED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled checked><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #17A34A'><td class='jn'>#X1427<div class='town'>Rockland</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1427&body=Job%3A%20%23X1427%20%28Rockland%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Punchlist <span class='dim'>Aug 26, 2026</span></div><div class='nx'>next · Blueboard and Plaster <span class='dim'>Aug 27, 2026</span></div><div class='fs'>🏗 construction started Jun 18, 2026</div></td><td><span class='chip' style='background:#17A34A'>CAPTURED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled checked><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #17A34A'><td class='jn'>#X1452<div class='town'>Wareham</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1452&body=Job%3A%20%23X1452%20%28Wareham%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ HVAC Inspection <span class='dim'>Aug 26, 2026</span></div><div class='nx'>next · Electrical Walkthrough With Homeowner <span class='dim'>Aug 27, 2026</span></div><div class='fs'>🏗 construction started Jun 22, 2026</div><div class='fw'>🏁 final walkthrough Oct 23, 2026</div></td><td><span class='chip' style='background:#17A34A'>CAPTURED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled checked><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #17A34A'><td class='jn'>#X1442<div class='town'>Plymouth</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1442&body=Job%3A%20%23X1442%20%28Plymouth%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Pour Slab <span class='dim'>Aug 26, 2026</span></div><div class='nx'>next · Dumpster Delivery <span class='dim'>Aug 27, 2026</span></div><div class='fs'>🏗 construction started Jun 23, 2026</div><div class='fw'>🏁 final walkthrough Nov 26, 2026</div></td><td><span class='chip' style='background:#17A34A'>CAPTURED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled checked><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+<tr style='border-left:4px solid #17A34A'><td class='jn'>#X1521<div class='town'>Acushnet</div><a class='rowupd' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20%23X1521&body=Job%3A%20%23X1521%20%28Acushnet%29%0A%0AWhat%20happened%20/%20what%20got%20captured%3A%0A%0A%0AAnything%20Kevin%20should%20know%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20testimonial%20tracker%20board%0A'>✉ update this job</a></td><td class='jsc'><div class='jstat'>Work In Process</div><div class='ph'>▸ Roofing Drop <span class='dim'>Aug 19, 2026</span></div><div class='nx'>next · HVAC Rough <span class='dim'>Aug 27, 2026</span></div><div class='fs'>🏗 construction started Jun 24, 2026</div></td><td><span class='chip' style='background:#17A34A'>CAPTURED</span></td><td class='ckc'><label class='ck'><input type='checkbox' disabled checked><span>Pre-testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final testimonial</span></label><label class='ck'><input type='checkbox' disabled><span>Final walkthrough video</span></label></td></tr>
+</tbody></table></div>
+<footer>BuildX · rebuilt daily from JobTread</footer>
+</div></body></html>

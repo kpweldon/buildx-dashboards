@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuildX Media Fast-Tracker &amp; Video Projects</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2713%27%20fill%3D%27%230B0B0C%27%2F%3E%3Cg%20stroke%3D%27%23FFB81C%27%20stroke-width%3D%2711%27%20stroke-linecap%3D%27square%27%3E%3Cline%20x1%3D%2717%27%20y1%3D%2717%27%20x2%3D%2747%27%20y2%3D%2747%27%2F%3E%3Cline%20x1%3D%2747%27%20y1%3D%2717%27%20x2%3D%2717%27%20y2%3D%2747%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='preconnect' href='https://fonts.gstatic.com' crossorigin><link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Oswald:wght@500;600;700&display=swap'>
+<style>
+/* ---- BuildX house style: brand chrome, plain category colours, zero shadows ---- */
+:root{
+  --amber:#FFB81C; --ink:#0B0B0C; --panel:#141416; --hair:rgba(255,255,255,.14);
+  --white:#FFFFFF; --body:rgba(255,255,255,.92); --mute:rgba(255,255,255,.58);
+  --line:rgba(255,255,255,.08);
+  --disp:'Franklin Gothic Condensed','Franklin Gothic Demi Cond','Oswald',
+         'Arial Narrow',Helvetica,sans-serif;
+  --meta:'Poppins','Helvetica Neue',Arial,sans-serif;
+}
+*{text-shadow:none!important;box-shadow:none!important}
+body{background:var(--ink);color:var(--body);font-family:var(--disp);font-size:15px}
+.wrap{max-width:1180px!important}
+h1,h2,h3,.jn,.ct,.chip,.sc,.badge,.st,.fld{font-family:var(--disp)}
+h1{font-weight:700;letter-spacing:.01em;text-transform:uppercase;font-size:24px}
+h2{text-transform:uppercase}
+/* every small line is Poppins bold — dates, counts, labels, notes */
+.meta,.town,.fs,.fw,.jstat,.dim,.nx,.cnt,.via,.dn,.note,.contact,.pm,.cn,code,.nxt,
+footer,.new,.btn,.pill,.add,.q,.upd,.lk,.tag,thead th,summary,.lhead,.ncount,.nhint,
+.ntown,.nst,.lock,.ck,.save,.empty{font-family:var(--meta);font-weight:600}
+.meta,.cnt,.tag,thead th,.lhead,.lock,summary{text-transform:uppercase;letter-spacing:.09em}
+.meta{font-size:10px} .tag{font-size:10px;color:var(--amber);font-weight:700}
+thead th{font-size:9px;font-weight:700;color:var(--mute)}
+/* ---- chrome: brand only ---- */
+.badge{background:var(--amber);color:var(--ink);font-weight:800;letter-spacing:.05em}
+.btn,.add,.q,.upd,.pill{border-radius:4px;font-size:10.5px;letter-spacing:.05em}
+.btn,.add,.q,.upd{background:#1B1B1E;border:1px solid var(--hair);color:var(--mute)}
+.btn:hover,.add:hover,.q:hover,.upd:hover{border-color:var(--amber);color:var(--amber)}
+.btn.send,.upd.big,.q.on,.btn.go{background:var(--amber);border-color:var(--amber);
+  color:var(--ink);font-weight:800}
+.btn.send:hover,.upd.big:hover{color:var(--ink);filter:brightness(1.08)}
+.btn.go:disabled,.btn.send:disabled{background:#1B1B1E;border-color:var(--hair);color:#4A4A4E}
+.save{background:var(--amber);color:var(--ink);font-weight:800}
+.save.err{background:#D93A3A;color:var(--white)}
+/* ---- colour only where it categorises ---- */
+.chip,.sc{border-radius:3px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+select.sc{appearance:none;-webkit-appearance:none;border:0;color:var(--ink);font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 7px;
+  font-size:9px;cursor:pointer;outline:none;font-family:var(--meta)}
+select.sc option{background:#141416;color:#fff;font-size:12px;letter-spacing:0;text-transform:none}
+.jn,.ct{font-weight:700;letter-spacing:.01em} .jn{font-size:15px} .ct{font-size:14px}
+.st,.fld{font-size:13.5px} .note{font-style:normal;font-size:10.5px}
+.scroll,.card,.how,.helpbody,.flagbox,.notif{border-radius:5px}
+td{border-bottom:1px solid var(--line)}
+.card{background:var(--panel);border-color:var(--hair)}
+.helpbody{background:var(--panel);border-color:var(--hair);font-size:11.5px;line-height:1.6}
+.helpbody b{color:var(--amber)}
+footer{letter-spacing:.05em;font-size:9.5px;text-transform:uppercase;color:#54545A}
+/* ---- mobile: the table stacks into cards, everything goes single column ---- */
+@media (max-width:820px){
+  body{padding:14px 11px 40px}
+  h1{font-size:19px;gap:8px} .lock{margin-left:0}
+  .cards{grid-template-columns:1fr!important}
+  .scroll{border:0;overflow:visible}
+  table{min-width:0!important} thead{display:none}
+  tbody tr{display:block;background:var(--panel);border:1px solid var(--hair);
+    border-left-width:4px;border-radius:5px;margin-bottom:8px}
+  tbody td{display:block;width:auto!important;border:0;padding:6px 12px}
+  tbody td+td{border-top:1px solid var(--line)}
+  body.list .card{grid-template-columns:1fr!important;gap:4px;border-left-width:3px;
+    border:1px solid var(--hair);border-radius:5px;margin-bottom:7px;padding:8px 11px}
+  body.list .lhead{display:none!important}
+  body.list .det{max-height:none!important}
+}
+
+ *{box-sizing:border-box} body{margin:0;padding:20px 18px 50px}
+ .wrap{max-width:1180px;margin:0 auto}
+ .badge{background:#FFB81C;color:#111;font-weight:900;padding:5px 12px;border-radius:6px;letter-spacing:.5px}
+ h1{font-size:21px;margin:0 0 4px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+ .tag{color:#FFB81C;font-size:13px;font-weight:700}
+ .meta{color:#7f8c82;font-size:12px;margin:8px 0 14px}
+ .banner{padding:8px 13px;border-radius:8px;font-size:11.5px;font-weight:700;display:inline-block;margin-bottom:14px}
+ .offline{background:#2a1c02;color:#e3b26a;border:1px solid #6b5222}
+ .pills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+ .pill{border:1px solid;border-radius:20px;padding:3px 11px;font-size:11px;font-weight:800}
+ .pill.filt{background:transparent;font-family:inherit;cursor:pointer;opacity:.5}
+ .pill.filt.on{opacity:1;background:#131a16}
+ .how{background:#0f1512;border:1px solid #223029;border-radius:10px;padding:12px 15px;margin-bottom:20px;font-size:12px;color:#9fb3a4;line-height:1.8}
+ .how b{color:#FFB81C} .how code{background:#1a221d;color:#e3b26a;padding:1px 6px;border-radius:4px;font-size:11px}
+ .bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+ .btn{background:#1a221d;border:1px solid #2f4034;color:#9fb3a4;font-family:inherit;font-size:11px;padding:6px 12px;border-radius:7px;cursor:pointer;text-decoration:none;display:inline-block}
+ .btn:hover{border-color:#FFB81C;color:#FFB81C}
+ .btn.send{padding:7px 16px;letter-spacing:.6px}
+
+ section{margin-bottom:18px}
+ h2{font-size:12px;letter-spacing:1.1px;font-weight:900;color:#fff;margin:0 0 9px;padding:6px 12px;border-radius:8px;display:flex;justify-content:space-between;align-items:center}
+ .cnt{font-size:10.5px;font-weight:700;opacity:.7}
+ .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:8px}
+ .card{position:relative;background:#101614;border:1px solid #223029;border-left:3px solid #6b7280;border-radius:8px;padding:8px 11px}
+ .card.doing{border-left-color:#FFB81C} .card.waiting{border-left-color:#1E4FA3}
+ .card.done{border-left-color:#17A34A;opacity:.5} .card.done .ct{text-decoration:line-through}
+ .tagrow{display:flex;gap:6px;align-items:center;margin-bottom:5px;padding-right:74px}
+ .sp{flex:1}
+ .sc{font-family:inherit;font-size:8.5px;font-weight:900;letter-spacing:.5px;color:#0b0e0d;border:0;border-radius:20px;padding:2px 8px;cursor:pointer;white-space:nowrap}
+ .dn{color:#5c655c;font-size:9.5px}
+ .car,.del{background:none;border:0;color:#3f4a43;font-size:11px;cursor:pointer;font-family:inherit;padding:0 1px;line-height:1}
+ .ctl{position:absolute;top:8px;right:9px;display:flex;gap:5px;align-items:center}
+ .grip{position:absolute;left:3px;top:0;bottom:0;width:15px;display:flex;align-items:center;
+        justify-content:center;color:#2b3630;font-size:11px;cursor:grab;user-select:none;
+        border-radius:6px 0 0 6px}
+ .grip:hover{color:var(--amber);background:rgba(255,184,28,.08)}
+ .grip:active{cursor:grabbing}
+ .card{padding-left:20px}
+ .card.dragging{opacity:.35}
+ .card.over-a{box-shadow:inset 0 2px 0 var(--amber)}
+ .card.over-b{box-shadow:inset 0 -2px 0 var(--amber)}
+ .del{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;border:1px solid #2a3630;
+       border-radius:3px;padding:2px 6px;opacity:.6}
+ .del:hover{opacity:1;border-color:#ef4444;background:rgba(239,68,68,.12)}
+ .car:hover{color:#FFB81C} .del{color:#8a5b5b} .del:hover{color:#ef4444}
+ .ct{font-size:12.5px;font-weight:700;color:#eafaea;line-height:1.4;border:1px solid transparent;border-radius:5px;padding:1px 4px;margin-left:-4px;outline:none}
+ .new{background:#2E7DD1;color:#04122b;font-size:8px;font-weight:900;padding:1px 5px;border-radius:20px}
+ .via{color:#5c655c;font-size:9px}
+ .card.folded .det{display:none} .card.folded .car{transform:rotate(-90deg)}
+ .lhead{display:none}
+ body.list .lhead{display:grid;grid-template-columns:16px 96px minmax(180px,1.1fr) minmax(200px,1.6fr) 86px;
+   gap:10px;padding:4px 11px;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;
+   text-transform:uppercase;color:#4a544c;border-bottom:1px solid var(--hair);margin-bottom:2px}
+ body.list .cards{display:block}
+ body.list .card{display:grid;grid-template-columns:16px 96px minmax(180px,1.1fr) minmax(200px,1.6fr) 86px;
+   gap:10px;align-items:start;padding:5px 11px;border-radius:0;border:0;
+   border-bottom:1px solid rgba(255,255,255,.06);border-left:3px solid #6b7280;background:none}
+ body.list .card:hover{background:var(--panel)}
+ body.list .tagrow{margin:0;display:block}
+ body.list .sp,body.list .dn,body.list .new,body.list .via{display:none}
+ body.list .ct{margin:0;font-size:12.5px}
+ body.list .det{margin:0;display:block;font-size:10.5px;color:#7f8c82;max-height:2.9em;overflow:hidden}
+ body.list .card:not(.folded) .det{max-height:none}
+ body.list .card.folded .det{display:block;max-height:1.5em}
+ body.list .ctl{position:static;justify-content:flex-end;align-items:flex-start}
+ body.list .grip{position:static;width:auto;height:auto;align-items:flex-start;padding-top:1px}
+ body.list .card{padding-left:11px}
+ body.list .tagrow{padding-right:0}
+ .lks{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap}
+ .lk{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:8px;
+      letter-spacing:.1em;color:#3f4a43;border:1px solid #1e2621;border-radius:3px;
+      padding:2px 5px;text-decoration:none;cursor:pointer;opacity:.55}
+ .lk span{display:none}
+ .lk.on{color:var(--amber);border-color:rgba(255,184,28,.45);opacity:1}
+ .lk.on span,.lk:hover span{display:inline}
+ .lk:hover{border-color:var(--amber);color:var(--amber);opacity:1}
+ .card.folded .lks{display:none}
+ .det{margin:5px 0 0 -5px;color:#9fb3a4;font-size:11px;line-height:1.55;white-space:pre-wrap;border:1px solid transparent;border-radius:5px;padding:3px 5px;outline:none}
+ .ct:hover,.det:hover{border-color:#243029;background:#0e1411}
+ .ct:focus,.det:focus{border-color:#FFB81C;background:#0e1411}
+ .det:empty::before{content:attr(data-ph);color:#3f4a43;font-style:italic}
+ .empty{color:#5c655c;font-size:12px;padding:8px 2px}
+ .add{margin-top:8px;background:#141a17;border:1px dashed #2f4034;color:#7f8c82;font-family:inherit;font-size:11px;padding:6px 13px;border-radius:8px;cursor:pointer}
+ .add:hover{border-color:#FFB81C;color:#FFB81C}
+ .save{position:fixed;right:18px;bottom:18px;font-weight:900;font-size:11px;padding:7px 14px;border-radius:20px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:9}
+ .save.on{opacity:1}
+ details{margin:0 0 12px} summary{cursor:pointer;list-style:none;outline:none}
+ summary::-webkit-details-marker{display:none}
+ summary::after{content:'▾';margin-left:7px;color:#5c655c;font-size:10px}
+ details[open] summary::after{content:'▴'}
+ .help{background:none;border:0;padding:0;margin:0 0 10px}
+ .help>summary{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--hair);border-radius:4px;
+   padding:2px 8px;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:#4a544c}
+ .help>summary::after{font-size:8px}
+ .help>summary:hover,.help[open]>summary{border-color:var(--amber);color:var(--amber)}
+ .helpbody{background:var(--panel);border:1px solid var(--hair);border-radius:6px;padding:9px 13px;
+   margin-top:7px;font-size:11.5px;line-height:1.65;color:#9fb3a4}
+ .recap{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 14px}
+ @media(max-width:760px){.recap{grid-template-columns:1fr}}
+ .rcol{background:var(--panel);border:1px solid var(--hair);border-radius:8px;padding:12px 14px}
+ .rcol h3{margin:0 0 9px;font-size:11px;letter-spacing:1.3px;color:var(--amber);
+   display:flex;align-items:center;gap:8px}
+ .rcol h3 span{background:#ffffff14;color:#c9d4cc;border-radius:20px;padding:1px 8px;
+   font-size:10px;letter-spacing:0}
+ .rcol ul{margin:0;padding:0;list-style:none}
+ .rcol li{padding:6px 0;border-top:1px solid var(--hair);font-size:12.5px;line-height:1.5;
+   display:flex;gap:7px;align-items:baseline;flex-wrap:wrap}
+ .rcol li:first-child{border-top:0}
+ .rcol li b{font-weight:600;color:#e8efe9}
+ .rempty{color:#6f7a71;font-style:italic}
+ .rsec{color:#7f8c82;font-size:10.5px;margin-left:auto;white-space:nowrap}
+ .rchip{color:#111;font-weight:800;font-size:8.5px;letter-spacing:.6px;
+   padding:2px 6px;border-radius:3px}
+ .mplan{background:var(--panel);border:1px solid var(--hair);border-radius:8px;
+   padding:12px 14px;margin:0 0 14px}
+ .mplan h3{margin:0 0 10px;font-size:11px;letter-spacing:1.3px;color:var(--amber)}
+ .mpgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+ .mpcard{border:1px solid var(--hair);border-radius:6px;padding:9px 11px;background:#ffffff08}
+ .mptop{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+ .mptop b{font-size:12.5px;color:#e8efe9}
+ .mpdot{width:7px;height:7px;border-radius:50%;flex:0 0 auto}
+ .mpst{margin-left:auto;font-size:8.5px;letter-spacing:.7px;font-weight:800}
+ .mpcard p{margin:0;font-size:11.5px;line-height:1.55;color:#9fb3a4}
+ .bar{margin:0 0 14px}
+ footer{color:#5c655c;font-size:11px;margin-top:26px;text-align:center;line-height:1.8}
+ footer a{color:#8fb7ff;text-decoration:none}
+</style></head><body><div class="wrap">
+<h1><span class="badge">BuildX</span> Media Fast-Tracker <span class="tag">+ Video Projects</span></h1>
+<div class="meta">Week of August 24, 2026 · rebuilt Wednesday, August 26 · 19 items</div>
+
+<div class='how'>Got something to add — a to-do, a video idea, or a status change? Send it over. These open a pre-written email in your own mail app, and anything with a <b>TODO:</b> or <b>VIDEO:</b> subject lands on this board automatically the next morning.<div class='bar'><a class='btn send' href='mailto:kevinw.buildx@gmail.com?subject=BuildX.ai%20update%20%E2%80%94%20weekly%20board&body=Here%27s%20my%20update%3A%0A%0A%0AWhat%20changed%3A%0AAnything%20needed%20from%20Kevin%3A%0A%0A%E2%80%94%20sent%20from%20the%20weekly%20board%0A'>✉️ SEND YOUR OWN UPDATE</a><a class='btn' href='mailto:kevinw.buildx@gmail.com?subject=TODO%3A%20&body=Details%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20weekly%20board%0A'>➕ add a to-do</a><a class='btn' href='mailto:kevinw.buildx@gmail.com?subject=VIDEO%3A%20&body=Details%3A%0A%0A%0A%E2%80%94%20sent%20from%20the%20weekly%20board%0A'>💡 add a video idea</a></div></div><div class="pills"><span class='pill' data-st='doing' style='border-color:#FFB81C;color:#FFB81C'>IN PROGRESS 4</span> <span class='pill' data-st='waiting' style='border-color:#1E4FA3;color:#1E4FA3'>WAITING 6</span> <span class='pill' data-st='todo' style='border-color:#6B7280;color:#6B7280'>TO DO 4</span> <span class='pill' data-st='done' style='border-color:#17A34A;color:#17A34A'>DONE 5</span> <span class='pill' data-st='' style='border-color:#7f8c82;color:#7f8c82'>ALL 19</span></div>
+<section data-sec='todo'><h2 style='background:#D93A3A'>Media Fast-Tracker<span class='cnt'>9 open · 12 total</span></h2><div class='lhead'><span></span><span>Status</span><span>Item</span><span>Details</span><span></span></div><div class='cards'><div class='card doing' data-id='t-fb-ad-training' data-sec='todo' data-status='doing'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#FFB81C'>IN PROGRESS</span><span class='sp'></span><span class='dn'>1</span></div><div class='ct' data-f='title'>Facebook Ad Training</div><div class='det' data-f='details' data-ph='+ details, one per line…'>HAVE SCRIPTS READY TO FILM ON TUESDAY / HOME TOUR</div><div class='ctl'></div></div><div class='card doing' data-id='t-film-vsl-script-w-buiz' data-sec='todo' data-status='doing'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#FFB81C'>IN PROGRESS</span><span class='sp'></span><span class='dn'>1</span></div><div class='ct' data-f='title'>Film VSL Script w/ Buz</div><div class='det' data-f='details' data-ph='+ details, one per line…'>EXACT SAME ONE AS JOHN (IN STUDIO)</div><div class='ctl'></div></div><div class='card doing' data-id='t-google-ads-budget-scheduling' data-sec='todo' data-status='doing'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#FFB81C'>IN PROGRESS</span><span class='sp'></span></div><div class='ct' data-f='title'>Google Ads - testing new youtube videos w/ correct links and times</div><div class='det' data-f='details' data-ph='+ details, one per line…'></div><div class='ctl'></div></div><div class='card waiting' data-id='t-visit-concrete' data-sec='todo' data-status='waiting'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#1E4FA3'>WAITING</span><span class='sp'></span><span class='dn'>1</span></div><div class='ct' data-f='title'>Visit concrete plant</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Contacted Andrew</div><div class='ctl'></div></div><div class='card waiting' data-id='t-visit-smallhome' data-sec='todo' data-status='waiting'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#1E4FA3'>WAITING</span><span class='sp'></span><span class='dn'>1</span></div><div class='ct' data-f='title'>Visit small home builder</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Contacted Marci</div><div class='ctl'></div></div><div class='card done folded' data-id='t-impact-basecamp' data-sec='todo' data-status='done'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#17A34A'>DONE</span><span class='sp'></span><span class='dn'>3</span></div><div class='ct' data-f='title'>Impact+ Videos from Basecamp</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Did a couple of QQPP videos.
+Sent to Austin for notes.
+Still to send over to Brian Cacey.</div><div class='ctl'></div></div><div class='card todo' data-id='t-headshot-newguy' data-sec='todo' data-status='todo'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#6B7280'>TO DO</span><span class='sp'></span></div><div class='ct' data-f='title'>Brian  — headshot + email signature</div><div class='det' data-f='details' data-ph='+ details, one per line…'></div><div class='ctl'></div></div><div class='card todo' data-id='t-headshot-gafney' data-sec='todo' data-status='todo'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#6B7280'>TO DO</span><span class='sp'></span></div><div class='ct' data-f='title'>Robert Gafney — headshot + email signature</div><div class='det' data-f='details' data-ph='+ details, one per line…'></div><div class='ctl'></div></div><div class='card done folded' data-id='t-fb-api-ads' data-sec='todo' data-status='done'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#17A34A'>DONE</span><span class='new'>NEW</span><span class='sp'></span><span class='dn'>3</span></div><div class='ct' data-f='title'>Facebook API hooked up — ad automation</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Meta Graph API connected and pulling live ad data.
+Feeds the BuildX ads dashboard.
+Next: automate the ad build/launch step off it.</div><div class='ctl'></div></div><div class='card done folded' data-id='t-remote-studio-laptop' data-sec='todo' data-status='done'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#17A34A'>DONE</span><span class='new'>NEW</span><span class='sp'></span><span class='dn'>2</span></div><div class='ct' data-f='title'>Remote workflow for the studio laptop</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Complete remote setup — studio laptop is now fully drivable off-site.
+Lets edits and Claude jobs run without being at the studio.</div><div class='ctl'></div></div><div class='card doing' data-id='t-podcast-consolidate' data-sec='todo' data-status='doing'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#FFB81C'>IN PROGRESS</span><span class='new'>NEW</span><span class='sp'></span><span class='dn'>3</span></div><div class='ct' data-f='title'>Podcast footage consolidation → master shorts project</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Going through all podcast footage and consolidating it.
+Goal: one master Premiere project Claude can cut a large batch of shorts from.
+Built to scale — repeatable for every future episode.</div><div class='ctl'></div></div><div class='card todo' data-id='t-qqpp-brian-cacey' data-sec='todo' data-status='todo'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#6B7280'>TO DO</span><span class='new'>NEW</span><span class='sp'></span><span class='dn'>2</span></div><div class='ct' data-f='title'>Send QQPP videos to Brian Cacey</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Impact+ / QQPP videos already went to Austin for notes.
+Still need to send them to Brian Cacey for his.</div><div class='ctl'></div></div></div></section><section data-sec='video'><h2 style='background:#1E4FA3'>Video Projects<span class='cnt'>5 open · 7 total</span></h2><div class='lhead'><span></span><span>Status</span><span>Item</span><span>Details</span><span></span></div><div class='cards'><div class='card waiting' data-id='v-buz-floorplans' data-sec='video' data-status='waiting'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#1E4FA3'>WAITING</span><span class='sp'></span></div><div class='ct' data-f='title'>Buz critiques floor plans</div><div class='det' data-f='details' data-ph='+ details, one per line…'></div><div class='ctl'></div></div><div class='card waiting' data-id='v-how-ervs-work' data-sec='video' data-status='waiting'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#1E4FA3'>WAITING</span><span class='sp'></span></div><div class='ct' data-f='title'>How ERVs work</div><div class='det' data-f='details' data-ph='+ details, one per line…'></div><div class='ctl'></div></div><div class='card waiting' data-id='v-hers-rating' data-sec='video' data-status='waiting'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#1E4FA3'>WAITING</span><span class='sp'></span></div><div class='ct' data-f='title'>How to read your HERS rating score</div><div class='det' data-f='details' data-ph='+ details, one per line…'></div><div class='ctl'></div></div><div class='card waiting' data-id='v-csl-license' data-sec='video' data-status='waiting'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#1E4FA3'>WAITING</span><span class='sp'></span><span class='dn'>1</span></div><div class='ct' data-f='title'>Make sure your builder has his CSL license</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Buz video idea</div><div class='ctl'></div></div><div class='card todo' data-id='v-sop-claude-level2' data-sec='video' data-status='todo'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#6B7280'>TO DO</span><span class='sp'></span><span class='dn'>5</span></div><div class='ct' data-f='title'>SOP Level 2 — Claude Everywhere (Desktop / Terminal / Phone)</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Follow-up to SOP: How To Install Claude in Chrome (Level 1, 3:52 — already shot)
+Teleprompter script ready: SOP_LEVEL-2_TELEPROMPTER_script.txt (~6:30)
+Full SOP reference doc: SOP_Claude_LEVEL-2_Desktop-Terminal-Phone.html
+Covers: desktop app Code tab, terminal claude --chrome, phone /remote-control
+Needs: screen recordings — JobTread payoff demo, install walkthrough, phone QR scan</div><div class='ctl'></div></div><div class='card done folded' data-id='v-cost-ma-2026' data-sec='video' data-status='done'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#17A34A'>DONE</span><span class='sp'></span><span class='dn'>1</span></div><div class='ct' data-f='title'>Cost of building in MA 2026</div><div class='det' data-f='details' data-ph='+ details, one per line…'>DONE Sent to impact</div><div class='ctl'></div></div><div class='card done folded' data-id='v-next-steps-with-buildx-john-vlc' data-sec='video' data-status='done'><div class='grip'></div><div class='tagrow'><span class='sc' style='background:#17A34A'>DONE</span><span class='sp'></span><span class='dn'>1</span></div><div class='ct' data-f='title'>Next Steps with BuildX (John VLC)</div><div class='det' data-f='details' data-ph='+ details, one per line…'>Done - sent to IMPACT</div><div class='ctl'></div></div></div></section><section data-sec='podcast'><h2 style='background:#2E7DD1'>Podcast Episodes<span class='cnt'>0 open · 0 total</span></h2><div class='lhead'><span></span><span>Status</span><span>Item</span><span>Details</span><span></span></div><div class='cards'><div class='empty'>Nothing here yet.</div></div></section>
+<footer>BuildX · source: media-fast-tracker/todo.json · rebuilt daily 7:10 AM by com.buildx.media-fast-tracker</footer>
+</div>
+<div class="save" id="toast">saved</div>
+
+</body></html>
