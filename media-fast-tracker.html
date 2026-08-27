@@ -134,6 +134,7 @@ footer{letter-spacing:.05em;font-size:9.5px;text-transform:uppercase;color:#5454
  .via{color:#5c655c;font-size:9px}
  .card.folded .det{display:none} .card.folded .car{transform:rotate(-90deg)}
  .lhead{display:none}
+
  body.list .lhead{display:grid;grid-template-columns:16px 96px minmax(180px,1.1fr) minmax(200px,1.6fr) 86px;
    gap:10px;padding:4px 11px;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;
    text-transform:uppercase;color:#4a544c;border-bottom:1px solid var(--hair);margin-bottom:2px}
@@ -152,6 +153,26 @@ footer{letter-spacing:.05em;font-size:9.5px;text-transform:uppercase;color:#5454
  body.list .grip{position:static;width:auto;height:auto;align-items:flex-start;padding-top:1px}
  body.list .card{padding-left:11px}
  body.list .tagrow{padding-right:0}
+@media print{
+ body .lhead{display:grid;grid-template-columns:16px 96px minmax(180px,1.1fr) minmax(200px,1.6fr) 86px;
+   gap:10px;padding:4px 11px;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;
+   text-transform:uppercase;color:#4a544c;border-bottom:1px solid var(--hair);margin-bottom:2px}
+ body .cards{display:block}
+ body .card{display:grid;grid-template-columns:16px 96px minmax(180px,1.1fr) minmax(200px,1.6fr) 86px;
+   gap:10px;align-items:start;padding:5px 11px;border-radius:0;border:0;
+   border-bottom:1px solid rgba(255,255,255,.06);border-left:3px solid #6b7280;background:none}
+ body .card:hover{background:var(--panel)}
+ body .tagrow{margin:0;display:block}
+ body .sp,body .dn,body .new,body .via{display:none}
+ body .ct{margin:0;font-size:12.5px}
+ body .det{margin:0;display:block;font-size:10.5px;color:#7f8c82;max-height:2.9em;overflow:hidden}
+ body .card:not(.folded) .det{max-height:none}
+ body .card.folded .det{display:block;max-height:1.5em}
+ body .ctl{position:static;justify-content:flex-end;align-items:flex-start}
+ body .grip{position:static;width:auto;height:auto;align-items:flex-start;padding-top:1px}
+ body .card{padding-left:11px}
+ body .tagrow{padding-right:0}
+}
  .lks{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap}
  .lk{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:8px;
       letter-spacing:.1em;color:#3f4a43;border:1px solid #1e2621;border-radius:3px;
