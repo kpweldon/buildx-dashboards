@@ -1,0 +1,15 @@
+{
+  "name": "buildx-nationality-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Nationality lookup for BuildX, exposed as a remote MCP server and a JSON API. Runs on the office NAS.",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.mjs"
+  }
+}
