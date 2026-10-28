@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BuildX.ai Control Room</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#0b0b0c">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0b0b0c;--panel:#111113;--line:#242429;--txt:#f2f2f3;--dim:#8b8b93;
+        --amber:#FFB81C;--red:#E4232B;--ok:#3ECF8E}
+  *{box-sizing:border-box;margin:0;padding:0;text-shadow:none!important;box-shadow:none!important}
+  body{background:var(--bg);color:var(--txt);font-family:Poppins,system-ui,sans-serif;
+       padding:0 0 60px;line-height:1.5}
+  header{position:sticky;top:0;z-index:40;background:rgba(11,11,12,.96);backdrop-filter:blur(10px);
+         border-bottom:1px solid var(--line);padding:18px 28px;display:flex;
+         justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  h1{font-size:17px;font-weight:800;letter-spacing:.16em}
+  h1 b{color:var(--amber)}
+  .sub{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--dim);
+       margin-top:5px;letter-spacing:.06em}
+  .live{font-family:'Space Mono',monospace;font-size:10px;color:var(--dim);
+        display:flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:99px;background:var(--ok)}
+  .dot.off{background:var(--red)}
+  main{padding:24px 28px;max-width:1240px}
+  h2{font-size:11.5px;font-weight:800;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;
+     padding-bottom:8px;border-bottom:1px solid var(--line);margin:0 0 15px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:13px;margin-bottom:32px}
+  .ag{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;
+      border-left:3px solid var(--line)}
+  .ag.s-ok{border-left-color:var(--ok)} .ag.s-running{border-left-color:var(--amber)}
+  .ag.s-error{border-left-color:var(--red)} .ag.s-warning{border-left-color:var(--amber)}
+  .ag.s-paused{border-left-color:var(--dim)} .ag.s-not_built{border-left-color:#33333a}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .nm{font-size:13px;font-weight:800;letter-spacing:.03em}
+  .rl{font-family:'Space Mono',monospace;font-size:9.5px;color:var(--dim);
+      text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+  .tag{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;
+       padding:3px 8px;border-radius:4px;white-space:nowrap}
+  .k-ok{background:#0d2a1e;color:var(--ok)} .k-running{background:#2a2205;color:var(--amber)}
+  .k-error{background:#2a0d0f;color:var(--red)} .k-warning{background:#2a2205;color:var(--amber)}
+  .k-paused{background:#1c1c20;color:var(--dim)} .k-not_built{background:#17171a;color:#5a5a63}
+  .msg{font-size:12px;color:#c9c9cf;margin-top:10px}
+  .meta{font-family:'Space Mono',monospace;font-size:9.5px;color:var(--dim);margin-top:9px;
+        display:flex;gap:12px;flex-wrap:wrap}
+  .hum{margin-top:10px;background:#2a0d0f;border-radius:6px;padding:8px 11px;font-size:11.5px;color:#ffb4b7}
+  .hum b{color:var(--red)}
+  .secl{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.14em;
+        color:var(--dim);margin:13px 0 7px;padding-top:11px;border-top:1px solid var(--line);
+        display:flex;justify-content:space-between;align-items:center}
+  .cnt{color:var(--amber);letter-spacing:.08em}
+  ul.have{list-style:none;font-size:11.5px}
+  ul.have li{padding:3px 0 3px 14px;position:relative;color:#a9a9b1}
+  ul.have li:before{content:"";position:absolute;left:0;top:10px;width:4px;height:4px;
+                    border-radius:99px;background:var(--ok)}
+  .td-row{display:flex;gap:9px;align-items:flex-start;padding:6px 0;cursor:pointer}
+  .td-row:hover .td-t{color:var(--amber)}
+  .td-row.done{opacity:.4}
+  .td-row.done .td-t{text-decoration:line-through}
+  .cb{width:14px;height:14px;border:2px solid var(--dim);border-radius:3px;flex:0 0 auto;
+      margin-top:2px;position:relative}
+  .td-row.done .cb{background:var(--amber);border-color:var(--amber)}
+  .td-row.done .cb:after{content:"";position:absolute;left:3.5px;top:0.5px;width:3px;height:7.5px;
+      border:solid #0b0b0c;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .td-t{font-size:12px;font-weight:600;line-height:1.4}
+  .td-w{font-size:10.5px;color:var(--dim);margin-top:2px;line-height:1.45}
+  .ctl{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);display:flex;gap:7px;flex-wrap:wrap}
+  button{font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.06em;
+         background:#1a1a1e;border:1px solid var(--line);color:var(--dim);padding:6px 11px;
+         border-radius:5px;cursor:pointer}
+  button:hover{border-color:var(--amber);color:var(--amber)}
+  button.on{background:var(--amber);border-color:var(--amber);color:#0b0b0c}
+  .empty{background:var(--panel);border:1px dashed var(--line);border-radius:10px;
+         padding:26px;text-align:center;color:var(--dim);font-size:12.5px}
+  .note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--amber);
+        border-radius:8px;padding:14px 17px;margin-bottom:20px;font-size:13px}
+  .note b{color:var(--amber)}
+  .tr{font-size:11.5px;color:#d6d6db;padding:6px 0;border-bottom:1px solid #1b1b1f;
+      display:flex;gap:8px;justify-content:space-between;white-space:pre-wrap}
+  .tr .when{font-family:'Space Mono',monospace;font-size:9px;color:var(--dim);display:block;margin-bottom:2px}
+  .tr .x{cursor:pointer;color:var(--dim);font-family:'Space Mono',monospace;font-size:13px;flex:0 0 auto}
+  .tr .x:hover{color:var(--red)}
+  .none{font-size:11px;color:#5a5a63;font-style:italic}
+  textarea{width:100%;background:#0b0b0c;border:1px solid var(--line);border-radius:6px;color:var(--txt);
+           font-family:Poppins,system-ui,sans-serif;font-size:12px;padding:8px 10px;margin-top:8px;
+           resize:vertical;min-height:54px}
+  textarea:focus{outline:none;border-color:var(--amber)}
+  .feed{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 17px;margin-bottom:32px}
+  .fe{padding:11px 0;border-bottom:1px solid var(--line);font-size:12px}
+  .fe:last-child{border-bottom:0}
+  .fe .h{font-family:'Space Mono',monospace;font-size:9.5px;color:var(--dim);display:flex;gap:10px;flex-wrap:wrap}
+  .fe .h b{color:var(--amber);font-weight:700}
+  .fe .b{margin-top:4px;white-space:pre-wrap;color:#c9c9cf}
+  body.ro .ctl,body.ro .edit,body.ro .lonly{display:none}
+  body.ro .td-row{cursor:default}
+  body.ro .td-row:hover .td-t{color:inherit}
+  .ro-bar{display:none;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;
+          background:#2a2205;color:var(--amber);padding:8px 28px;border-bottom:1px solid var(--line)}
+  body.ro .ro-bar{display:block}
+  @media(max-width:700px){.ro-bar{padding-left:16px;padding-right:16px}}
+  @media(max-width:700px){header,main{padding-left:15px;padding-right:15px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>BUILDX<b>.AI</b> — CONTROL ROOM</h1>
+    <div class="sub" id="sub">LOADING…</div>
+  </div>
+  <div class="live"><span class="dot" id="dot"></span><span id="livetxt">CONNECTED</span></div>
+</header>
+
+<div class="ro-bar">VIEW ONLY · changes are made on the BuildX Studio PC</div>
+
+<main>
+  <div class="note">
+    <b>Source of truth.</b> The Studio PC is the only place agents get changed, trained or
+    switched on. Changes made here reach the public view-only page in about a minute.
+    Notes emailed from k.weldon@buildx.com with <b>CONTROL ROOM</b> in the subject are applied too.
+  </div>
+
+  <h2>Agents</h2>
+  <div class="grid" id="grid"></div>
+
+  <div class="lonly">
+    <h2>Waiting On You</h2>
+    <div id="pending"></div>
+  </div>
+
+  <h2 style="margin-top:32px">Training &amp; Correspondence</h2>
+  <div class="feed">
+    <div class="edit" style="padding:10px 0">
+      <textarea id="gnote" placeholder="General note to every agent (not tied to one)..."></textarea>
+      <div class="ctl" style="border:0;padding-top:6px;margin-top:4px"><button data-act="gnote">LOG NOTE</button></div>
+    </div>
+    <div id="feed"></div>
+  </div>
+</main>
+
+<script>
+var STATUS_LABEL = {
+  not_built:'NOT BUILT', idle:'IDLE', running:'RUNNING', ok:'OK',
+  warning:'WARNING', error:'ERROR', paused:'PAUSED'
+};
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function ago(ts){
+  if(!ts) return 'never';
+  var d = (Date.now()/1000) - ts, u = [[86400,'d'],[3600,'h'],[60,'m']];
+  for (var i=0;i<u.length;i++){ if(d>=u[i][0]) return Math.floor(d/u[i][0])+u[i][1]+' ago'; }
+  return 'just now';
+}
+
+function card(a){
+  var st = a.status || 'not_built';
+  var hum = (a.needs_human && a.needs_human.length)
+    ? '<div class="hum"><b>NEEDS YOU:</b> ' + a.needs_human.map(esc).join(' · ') + '</div>' : '';
+  var on = !!(a.config && a.config.enabled);
+
+  var have = (a.have && a.have.length)
+    ? '<div class="secl">ALREADY BUILT</div><ul class="have">' +
+      a.have.map(function(h){ return '<li>' + esc(h) + '</li>'; }).join('') + '</ul>'
+    : '';
+
+  var todos = a.todo || [];
+  var openN = todos.filter(function(t){ return !t.done; }).length;
+  var todo = todos.length
+    ? '<div class="secl">TO DO <span class="cnt">' + openN + ' OPEN / ' + todos.length + '</span></div>' +
+      todos.map(function(t, i){
+        return '<div class="td-row' + (t.done ? ' done' : '') + '" data-act="todo" data-slug="' +
+          esc(a.agent) + '" data-i="' + i + '" data-done="' + (t.done?1:0) + '">' +
+          '<div class="cb"></div><div><div class="td-t">' + esc(t.t) + '</div>' +
+          (t.why ? '<div class="td-w">' + esc(t.why) + '</div>' : '') + '</div></div>';
+      }).join('')
+    : '';
+
+  return '<div class="ag s-' + esc(st) + '">' +
+    '<div class="top"><div><div class="nm">' + esc(a.display_name || a.agent) + '</div>' +
+    '<div class="rl">' + esc(a.role || '') + '</div></div>' +
+    '<span class="tag k-' + esc(st) + '">' + (STATUS_LABEL[st] || st) + '</span></div>' +
+    (a.message ? '<div class="msg">' + esc(a.message) + '</div>' : '') +
+    '<div class="meta"><span>last run: ' + esc(a.last_run || 'never') + '</span>' +
+    '<span>next: ' + esc(a.next_run || 'unscheduled') + '</span>' +
+    (a.has_log ? '<span>log: ' + (a.log_size/1024).toFixed(1) + ' KB</span>' : '<span>no log</span>') +
+    '</div>' + hum + have + todo + training(a) +
+    '<div class="ctl">' +
+      '<button class="' + (on?'on':'') + '" data-act="toggle" data-slug="' + esc(a.agent) + '" data-on="' + (on?1:0) + '">' +
+        (on ? 'ENABLED' : 'DISABLED') + '</button>' +
+      '<button data-act="pause" data-slug="' + esc(a.agent) + '">PAUSE</button>' +
+    '</div></div>';
+}
+
+// Served by server.py on the Studio PC -> editable. Anywhere else (GitHub Pages) ->
+// read the published state.json snapshot and hide every control.
+var LOCAL = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+var EDIT = LOCAL;
+if (!EDIT) document.body.classList.add('ro');
+var NAMES = {};
+
+function training(a){
+  var t = a.training || [];
+  return '<div class="secl">TRAINING <span class="cnt">' + t.length + ' NOTE' + (t.length===1?'':'S') + '</span></div>' +
+    (t.length ? t.map(function(n, i){
+      return '<div class="tr"><div><span class="when">' + esc(n.at) + ' · ' + esc(n.source||'') + '</span>' +
+        esc(n.text) + '</div>' + (EDIT ? '<span class="x" title="remove" data-act="untrain" data-slug="' +
+        esc(a.agent) + '" data-i="' + i + '">&times;</span>' : '') + '</div>';
+    }).join('') : '<div class="none">Not trained yet.</div>') +
+    '<div class="edit"><textarea data-train="' + esc(a.agent) +
+    '" placeholder="Teach this agent something: a rule, a preference, a correction..."></textarea>' +
+    '<div class="ctl" style="border:0;padding-top:6px;margin-top:4px"><button data-act="train" data-slug="' +
+    esc(a.agent) + '">SAVE TRAINING NOTE</button></div></div>';
+}
+
+function feed(c){
+  c = (c || []).slice().reverse();
+  document.getElementById('feed').innerHTML = c.length ? c.map(function(e){
+    return '<div class="fe"><div class="h"><span>' + esc(e.at) + '</span><b>' +
+      esc(e.agent ? (NAMES[e.agent] || e.agent) : 'ALL AGENTS') + '</b><span>' +
+      esc(e.source === 'email' ? 'email from ' + (e.from || '') : 'Studio PC') + '</span><span>' +
+      esc(e.subject || '') + '</span></div>' + (e.text ? '<div class="b">' + esc(e.text) + '</div>' : '') + '</div>';
+  }).join('') : '<div class="fe"><div class="none">No training or correspondence yet.</div></div>';
+}
+
+function busy(){
+  var t = document.querySelectorAll('textarea');
+  for (var i=0;i<t.length;i++){ if (t[i].value || t[i] === document.activeElement) return true; }
+  return false;
+}
+
+function post(url, body){
+  return fetch(url, {method:'POST', headers:{'Content-Type':'application/json'},
+                     body: JSON.stringify(body)});
+}
+
+function load(force){
+  if (!force && busy()) return;           // never wipe a half-typed note on refresh
+  fetch(LOCAL ? '/api/state' : 'state.json?t=' + Date.now()).then(function(r){ return r.json(); }).then(function(d){
+    var ags = d.agents || [];
+    ags.forEach(function(a){ NAMES[a.agent] = a.display_name || a.agent; });
+    feed(d.correspondence);
+    document.getElementById('grid').innerHTML = ags.map(card).join('');
+    var live = ags.filter(function(a){ return a.status !== 'not_built'; }).length;
+    var trained = ags.filter(function(a){ return (a.training||[]).length; }).length;
+    document.getElementById('sub').textContent =
+      ags.length + ' AGENTS · ' + live + ' LIVE · ' + trained + ' TRAINED' +
+      (LOCAL ? ' · STUDIO PC (EDITABLE)' : ' · AS OF ' + String(d.as_of || '?').replace('T', ' '));
+    document.getElementById('dot').classList.remove('off');
+    document.getElementById('livetxt').textContent = LOCAL ? 'CONNECTED' : 'VIEW ONLY';
+  }).catch(function(){
+    document.getElementById('dot').classList.add('off');
+    document.getElementById('livetxt').textContent = 'SERVER DOWN';
+  });
+
+  if (LOCAL) fetch('/api/deliverables').then(function(r){ return r.json(); }).then(function(d){
+    var p = d.pending || [];
+    document.getElementById('pending').innerHTML = p.length
+      ? '<div class="grid">' + p.map(function(i){
+          return '<div class="ag"><div class="nm">' + esc(i.name) + '</div>' +
+                 '<div class="meta"><span>' + (i.is_dir ? 'folder' : i.mb + ' MB') + '</span>' +
+                 '<span>' + ago(i.mtime) + '</span></div></div>'; }).join('') + '</div>'
+      : '<div class="empty">Nothing waiting for approval.</div>';
+  }).catch(function(){});
+}
+
+document.addEventListener('click', function(e){
+  if (!e.target.closest || !EDIT) return;
+
+  var x = e.target.closest('[data-act="untrain"]');
+  if (x) {
+    post('/api/train/' + x.getAttribute('data-slug'), {remove: +x.getAttribute('data-i')})
+      .then(function(){ load(true); });
+    return;
+  }
+
+  var row = e.target.closest('[data-act="todo"]');
+  if (row) {
+    fetch('/api/todo/' + row.getAttribute('data-slug'), {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({index: +row.getAttribute('data-i'),
+                            done: row.getAttribute('data-done') !== '1'})
+    }).then(load);
+    return;
+  }
+
+  var b = e.target.closest('button[data-act]');
+  if (!b) return;
+  var slug = b.getAttribute('data-slug'), act = b.getAttribute('data-act');
+  if (act === 'train' || act === 'gnote') {
+    var ta = act === 'gnote' ? document.getElementById('gnote')
+                             : document.querySelector('textarea[data-train="' + slug + '"]');
+    if (!ta || !ta.value.trim()) return;
+    post(act === 'gnote' ? '/api/note' : '/api/train/' + slug, {text: ta.value})
+      .then(function(r){ if (r.ok) { ta.value = ''; ta.blur(); load(true); } });
+    return;
+  }
+  var body = act === 'pause'
+    ? {status:'paused', config:{enabled:false}}
+    : {config:{enabled: b.getAttribute('data-on') !== '1'}};
+  fetch('/api/agent/' + slug, {
+    method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
+  }).then(load);
+});
+
+load(true);
+setInterval(load, LOCAL ? 10000 : 60000);
+</script>
+</body>
+</html>

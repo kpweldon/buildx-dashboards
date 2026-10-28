@@ -1,0 +1,336 @@
+{
+  "as_of": "2026-10-28T10:09:00",
+  "agents": [
+    {
+      "agent": "nas-media",
+      "display_name": "BuildX.ai NAS Media Agent",
+      "role": "Server - footage custodian",
+      "status": "error",
+      "last_run": "2026-10-28T10:08:33",
+      "last_result": "report built + emailed",
+      "next_run": "2026-10-29T00:00:00",
+      "message": "No working backup: Hyper Backup has 1 task(s) and none has completed a run. The NAS is the only copy of the footage.",
+      "needs_human": [
+        "No working backup: Hyper Backup has 1 task(s) and none has completed a run. The NAS is the only copy of the footage."
+      ],
+      "config": {
+        "enabled": true,
+        "schedule": "nightly, right after BuildX-Media-Nightly (00:00)",
+        "dry_run": false
+      },
+      "stats": {
+        "used_pct": 70.4,
+        "free_tb": 10.19,
+        "files": 75870,
+        "new24": 80,
+        "ping_ms": 0.0
+      },
+      "have": [
+        "Z:/_MEDIA_INDEX + laptop BuildX-Index/ (6220 files indexed)",
+        "BuildX-Media-Nightly task, Ready, runs 00:00",
+        "BuildX-Transcripts-Sync task, Ready, runs 23:30",
+        "nas_dsm.py DSM API client - LAN login verified, 918 APIs",
+        "ffmpeg for transcode + poster frames"
+      ],
+      "todo": [
+        {
+          "t": "Wrap the nightly index + DSM client behind one /buildx-nas-media skill",
+          "why": "Right now they are two unrelated scheduled tasks with no shared state",
+          "done": false
+        },
+        {
+          "t": "DRAFTED - naming convention awaiting Kevin's approval",
+          "why": "shared/conventions/naming.md + naming.json. 3 open questions in the doc. Agent cannot rename until approved.",
+          "done": true
+        },
+        {
+          "t": "Decide transcode targets (proxy codec + resolution)",
+          "why": "Undefined; affects every downstream editor task",
+          "done": false
+        },
+        {
+          "t": "Emit state/nas-media.json on every run",
+          "why": "So the Control Room and Master can see it",
+          "done": true
+        },
+        {
+          "t": "Team update message: what landed, what needs a human",
+          "why": "Kevin asked for this explicitly",
+          "done": true
+        },
+        {
+          "t": "Retired 'BuildX Transcript Sweep' + 'BuildX-Media-Backfill'",
+          "why": "Deleted 2026-08-24 on Kevin's call. XML definitions kept in ~/BuildX.ai/_task-backups/ if either is ever needed back.",
+          "done": true
+        }
+      ]
+    },
+    {
+      "agent": "assistant-editor",
+      "display_name": "BuildX.ai Assistant Editor",
+      "role": "Premiere - cuts + deliverables",
+      "status": "not_built",
+      "last_run": null,
+      "last_result": null,
+      "next_run": null,
+      "message": "Not wired up. 6 pieces already exist, 6 to-dos to close.",
+      "needs_human": [],
+      "config": {
+        "enabled": false,
+        "schedule": null,
+        "dry_run": true
+      },
+      "stats": {},
+      "have": [
+        "Premiere MCP bridge + premiere-pro-mcp skill",
+        "Premiere-ProjectSetup (raw shoot -> organized project)",
+        "buildx-qa-shorts / buildx-shortform-editor / buildx-longform-youtube",
+        "BuildX_Subtitles, thumbnail, buildx-youtube-thumbnail",
+        "buildx-testimonial-editor (pre-edit transcript map)",
+        "Dialogue Selection Engine doctrine"
+      ],
+      "todo": [
+        {
+          "t": "Chain the existing skills into one daily run",
+          "why": "Today each is invoked by hand, one at a time",
+          "done": false
+        },
+        {
+          "t": "Define the 'new footage is ready' trigger",
+          "why": "The agent has no signal telling it to start",
+          "done": false
+        },
+        {
+          "t": "Build the daily approval package into outbox/pending-approval",
+          "why": "Kevin approves before anything ships",
+          "done": false
+        },
+        {
+          "t": "Define the handoff contract to social-scheduling",
+          "why": "What an approved cut looks like when it moves on",
+          "done": false
+        },
+        {
+          "t": "Emit state/assistant-editor.json",
+          "why": "",
+          "done": false
+        },
+        {
+          "t": "Detect a dead Premiere CEP bridge and REPORT it",
+          "why": "Otherwise the agent hangs silently instead of failing",
+          "done": false
+        }
+      ]
+    },
+    {
+      "agent": "social-scheduling",
+      "display_name": "BuildX.ai Social Media Scheduling Agent",
+      "role": "Publishing - copy + scheduling",
+      "status": "not_built",
+      "last_run": null,
+      "last_result": null,
+      "next_run": null,
+      "message": "ON HOLD - awaiting Metricool bulk-scheduling instructions. 9 to-dos, 1 closed.",
+      "needs_human": [
+        "HOLD: Kevin owes the Metricool bulk-scheduling instructions before ANY scheduling is built"
+      ],
+      "config": {
+        "enabled": false,
+        "schedule": null,
+        "dry_run": true,
+        "scheduling_enabled": false,
+        "hold_reason": "Kevin 2026-08-24: do not start scheduling yet. Bulk upload goes through the Metricool API and there is a specific set of instructions still to come."
+      },
+      "stats": {},
+      "have": [
+        "Z:/Dropbox (Scheduling) - 334 mp4, transcripts, captions.md",
+        "posting-slots.json - ranked slots per platform/day, max 3/day/platform",
+        "urls.json + Top Performers / Recycling / ADS / Archive folders",
+        "Dropbox API client (~/.secrets/dropbox.env) - verified",
+        "meta-post / meta-analytics / meta-ads skills on live Graph API",
+        "Metricool API call pattern (working)",
+        "Scheduling Posts daily job - transcribe -> draft copy via local Ollama"
+      ],
+      "todo": [
+        {
+          "t": "WAIT for Kevin's Metricool bulk-scheduling instructions",
+          "why": "Explicit hold set 2026-08-24. Nothing scheduling-related gets built before this.",
+          "done": false
+        },
+        {
+          "t": "Pull Metricool creds local to ~/.secrets/",
+          "why": "In Google Drive today - agent cannot reach them unattended",
+          "done": false
+        },
+        {
+          "t": "PUBLISH GATE DECIDED: queue it, Kevin approves the queue, never auto-post",
+          "why": "Settled 2026-08-24. Nothing reaches a public channel without an explicit approve.",
+          "done": true
+        },
+        {
+          "t": "Define what counts as COMPLETE before an item may be queued",
+          "why": "Needs video + transcript + title + description + tags (+ playlist for YouTube). Incomplete items get flagged, not guessed at.",
+          "done": false
+        },
+        {
+          "t": "BLOCKED - Build the queue via the Metricool API (bulk)",
+          "why": "Kevin is supplying a specific set of instructions for the bulk upload. Do NOT build or run any scheduling until they arrive.",
+          "done": false
+        },
+        {
+          "t": "Surface the pending queue on the Control Room with approve-all",
+          "why": "One click should clear a week - the gate must be low friction or it gets bypassed",
+          "done": false
+        },
+        {
+          "t": "Copy generation in BuildX voice, CTA always BuildX.com",
+          "why": "Standing brand rule",
+          "done": false
+        },
+        {
+          "t": "Watch Z:/Dropbox (Scheduling) for newly-complete items",
+          "why": "Reuse the existing folder - do NOT start a second queue",
+          "done": false
+        },
+        {
+          "t": "Emit state/social-scheduling.json",
+          "why": "",
+          "done": false
+        }
+      ]
+    },
+    {
+      "agent": "jobtread",
+      "display_name": "BuildX.ai JobTread Agent",
+      "role": "Jobsite - source material",
+      "status": "not_built",
+      "last_run": null,
+      "last_result": null,
+      "next_run": null,
+      "message": "Not wired up. 3 pieces already exist, 4 to-dos to close.",
+      "needs_human": [],
+      "config": {
+        "enabled": false,
+        "schedule": null,
+        "dry_run": true
+      },
+      "stats": {},
+      "have": [
+        "JobTread API credentials (on Desktop)",
+        "jobtread-social skill - lead-source pipeline funnels",
+        "Weekly Jobsite Content job - Mon 7:20am crew photos -> draft carousels"
+      ],
+      "todo": [
+        {
+          "t": "Move JobTread creds to ~/.secrets/jobtread.env",
+          "why": "Consistent with dropbox.env / meta.env / nas.env",
+          "done": false
+        },
+        {
+          "t": "Add a daily pull, not just the Monday weekly",
+          "why": "Kevin asked for daily logs too",
+          "done": false
+        },
+        {
+          "t": "Organize pulls into post-ready sets for social-scheduling",
+          "why": "Currently ends at draft carousels",
+          "done": false
+        },
+        {
+          "t": "Emit state/jobtread.json",
+          "why": "",
+          "done": false
+        }
+      ]
+    },
+    {
+      "agent": "analytics",
+      "display_name": "BuildX.ai Analytics Agent",
+      "role": "Performance - insight",
+      "status": "not_built",
+      "last_run": null,
+      "last_result": null,
+      "next_run": null,
+      "message": "Not wired up. 3 pieces already exist, 4 to-dos to close.",
+      "needs_human": [],
+      "config": {
+        "enabled": false,
+        "schedule": null,
+        "dry_run": true
+      },
+      "stats": {},
+      "have": [
+        "meta-analytics + meta-ads skills (live Graph API)",
+        "Metricool API usage pattern",
+        "buildx-ads-dashboard skill"
+      ],
+      "todo": [
+        {
+          "t": "Pull Metricool creds local",
+          "why": "Same blocker as social-scheduling",
+          "done": false
+        },
+        {
+          "t": "Define report cadence and where it lands",
+          "why": "Undecided",
+          "done": false
+        },
+        {
+          "t": "Define what qualifies as 'worth recycling'",
+          "why": "Kevin asked for recycle picks - needs a rule, not a vibe",
+          "done": false
+        },
+        {
+          "t": "Emit state/analytics.json",
+          "why": "",
+          "done": false
+        }
+      ]
+    },
+    {
+      "agent": "master",
+      "display_name": "BuildX.ai Master Agent",
+      "role": "Overseer - reads the rest",
+      "status": "not_built",
+      "last_run": null,
+      "last_result": null,
+      "next_run": null,
+      "message": "Not wired up. 3 pieces already exist, 4 to-dos to close.",
+      "needs_human": [],
+      "config": {
+        "enabled": false,
+        "schedule": null,
+        "dry_run": true
+      },
+      "stats": {},
+      "have": [
+        "Control Room hub at 127.0.0.1:8765, running at login",
+        "Reads all six state files already",
+        "Weekly To-Do board pattern (email-driven) to copy from"
+      ],
+      "todo": [
+        {
+          "t": "Health check: did each agent run, fail, or stall",
+          "why": "The core job",
+          "done": false
+        },
+        {
+          "t": "Roll every agent's needs_human[] into one list",
+          "why": "One place to see what is blocked",
+          "done": false
+        },
+        {
+          "t": "Weekly update + to-do email",
+          "why": "Email tone + [TAG] subject rules apply",
+          "done": false
+        },
+        {
+          "t": "Decide the alert threshold",
+          "why": "What is actually worth interrupting Kevin for",
+          "done": false
+        }
+      ]
+    }
+  ],
+  "correspondence": []
+}
