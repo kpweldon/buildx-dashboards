@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-29T00:52:42",
+  "as_of": "2026-10-29T01:08:06",
   "agents": [
     {
       "agent": "nas-media",
@@ -62,6 +62,13 @@
           "t": "Retired 'BuildX Transcript Sweep' + 'BuildX-Media-Backfill'",
           "why": "Deleted 2026-08-24 on Kevin's call. XML definitions kept in ~/BuildX.ai/_task-backups/ if either is ever needed back.",
           "done": true
+        }
+      ],
+      "training": [
+        {
+          "at": "2026-10-29T01:08:05",
+          "source": "email",
+          "text": "Testing"
         }
       ]
     },
@@ -332,5 +339,14 @@
       ]
     }
   ],
-  "correspondence": []
+  "correspondence": [
+    {
+      "at": "2026-10-29T01:08:05",
+      "source": "email",
+      "from": "k.weldon@buildx.com",
+      "agent": "nas-media",
+      "subject": "CONTROL ROOM - nas media: test. ",
+      "text": "Testing"
+    }
+  ]
 }
