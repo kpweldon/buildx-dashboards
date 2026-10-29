@@ -1,14 +1,14 @@
 {
-  "as_of": "2026-10-29T00:07:58",
+  "as_of": "2026-10-29T00:24:38",
   "agents": [
     {
       "agent": "nas-media",
       "display_name": "BuildX.ai NAS Media Agent",
       "role": "Server - footage custodian",
       "status": "error",
-      "last_run": "2026-10-28T10:08:33",
+      "last_run": "2026-10-29T00:20:08",
       "last_result": "report built + emailed",
-      "next_run": "2026-10-29T00:00:00",
+      "next_run": "2026-10-30T00:00:00",
       "message": "No working backup: Hyper Backup has 1 task(s) and none has completed a run. The NAS is the only copy of the footage.",
       "needs_human": [
         "No working backup: Hyper Backup has 1 task(s) and none has completed a run. The NAS is the only copy of the footage."
@@ -21,9 +21,9 @@
       "stats": {
         "used_pct": 70.4,
         "free_tb": 10.19,
-        "files": 75870,
-        "new24": 80,
-        "ping_ms": 0.0
+        "files": 75996,
+        "new24": 160,
+        "ping_ms": 1.0
       },
       "have": [
         "Z:/_MEDIA_INDEX + laptop BuildX-Index/ (6220 files indexed)",
