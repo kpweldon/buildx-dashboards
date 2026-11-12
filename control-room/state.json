@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-11T19:14:32",
+  "as_of": "2026-11-11T19:25:08",
   "agents": [
     {
       "agent": "nas-media",
@@ -246,7 +246,7 @@
         {
           "t": "Emit state/jobtread.json",
           "why": "",
-          "done": false
+          "done": true
         }
       ]
     },
